@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -13,3 +17,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+#logo{
+  margin: 5px 0;
+  text-align: center;
+  color: red;
+}
+#logo span{
+  color: gold;
+}
+
+html{
+  height: 100%;
+  position: relative;
+}
+
+footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

@@ -1,7 +1,36 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+#main-container{
+  height: 90vh;
+  display: grid;
+  grid-template-rows: 10% 90%;
   text-align: center;
 }
 
+#home-buttons > button{
+  width: 250px;
+  height: 250px;
+  margin: 16px 16px;
+  position: relative;
+}
+
+#home-buttons > button > span{
+  position: absolute;
+  bottom: 10px;
+  translate: -50%;
+  font-size: 24px;
+  width: 100%;
+}
+
+
+footer{
+  position: relative;
+  bottom: 0;
+}
