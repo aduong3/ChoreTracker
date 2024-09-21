@@ -8,27 +8,41 @@
 }
 
 #main-container{
-  height: 90vh;
+  height: 80vh;
   display: grid;
-  grid-template-rows: 10% 90%;
-  text-align: center;
+  grid-template-rows: 20% 80%;
+  position: relative;
+}
+
+#home-info, #home-buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#home-info{
+  flex-direction: column;
 }
 
 #home-buttons > button{
   width: 250px;
   height: 250px;
-  margin: 16px 16px;
+  margin: 0 16px;
   position: relative;
 }
 
 #home-buttons > button > span{
   position: absolute;
-  bottom: 10px;
+  bottom: 0;
   translate: -50%;
   font-size: 24px;
   width: 100%;
 }
-
+#plus-icon, #magnify-glass, #dollar-sign{
+  position: absolute;
+  translate: -50% -60%;
+  font-size: 150px;
+}
 
 footer{
   position: relative;
