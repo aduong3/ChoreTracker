@@ -1,8 +1,9 @@
 import './Form.css'
 import {useState} from 'react';
+import PropTypes from 'prop-types';
 
 
-function Form(){
+function Form({ onClose }){
     const [frequency, setFrequency] = useState('none');
     const [selectedDate, setSelectedDate] = useState('');
 
@@ -43,10 +44,12 @@ function Form(){
                 <option value="none">No Repeat</option>
                 <option value="daily">Daily</option>
                 <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly (WIP)</option>
+                <option value="monthly">Monthly</option>
             </select>
-
+            <div id="form-buttons">
             <input type="submit"></input>
+            <button onClick={onClose}>Cancel</button>
+            </div>
         </form>
             
             {frequency != 'none' && selectedDate && (
@@ -60,6 +63,10 @@ function Form(){
 
         </>
     )
+};
+
+Form.propTypes = {
+    onClose: PropTypes.func.isRequired,
 };
 
 export default Form;

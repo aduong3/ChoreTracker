@@ -12,6 +12,10 @@ function App() {
     setShowForm(!showForm);
   }
 
+  const handleCloseForm = () => {
+    setShowForm(false);
+  }
+
   return (
     <> 
       <div id="main-container">
@@ -34,7 +38,7 @@ function App() {
           </button>
         </div>
       </div>
-      {showForm && <Form />}
+      {showForm && <Form onClose={handleCloseForm} />}
       
 
     </>

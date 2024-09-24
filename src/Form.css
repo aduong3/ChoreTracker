@@ -22,3 +22,8 @@
 #form-container input[type="submit"] {
     margin-top: 15px;
 }
+
+#form-buttons input, button{
+    padding: 6px;
+    margin: 6px 12px;
+}
