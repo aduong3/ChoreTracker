@@ -13,12 +13,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
-    margin-top: 10px;
+    font-size: 22px;
+    margin-top: 30px;
 }
 #form-container > form > input{
     margin-bottom: 10px;
 }
+
 #form-container input[type="submit"] {
     margin-top: 15px;
 }

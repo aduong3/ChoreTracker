@@ -4,8 +4,11 @@ import PropTypes from 'prop-types';
 
 
 function Form({ onClose }){
-    const [frequency, setFrequency] = useState('none');
+    const [choreName, setChoreName] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
+    const [points, setPoints] = useState(0);
+    const [frequency, setFrequency] = useState('none');
+    
 
     const handleFrequencyChange = (e) => {
         setFrequency(e.target.value);
@@ -26,21 +29,26 @@ function Form({ onClose }){
         })
     }
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        // await saveChore({ choreName, selectedDate, points, frequency});
+    }
+
     return(
         <>
         <div id="form-container">
-        <form>
+        <form onSubmit={handleSubmit}>
             <label htmlFor="chore-title">Chore Name:</label>
-            <input type="text" name="chore-title" id="chore-title"></input>
+            <input type="text" name="chore-title" id="chore-title" value={choreName} onChange={(e) => setChoreName(e.target.value)} required></input>
 
             <label htmlFor="chore-date">Pick which date:</label>
-            <input type="date" name="chore-date" id="chore-date" value={selectedDate} onChange={handleDateChange}></input>
+            <input type="date" name="chore-date" id="chore-date" value={selectedDate} onChange={handleDateChange} required></input>
 
-            <label htmlFor="points">How many points?</label>
-            <input type="number" name="points" id="points" min="1" max="20"></input>
+            <label htmlFor="points">How many points? (1-20)</label>
+            <input type="number" name="points" id="points" min="1" max="20" value={points} onChange={(e)=> setPoints(e.target.value)} required></input>
 
             <label htmlFor="frequency">How frequent?</label>
-            <select name="frequency" id="frequency" value={frequency} onChange={handleFrequencyChange}>
+            <select name="frequency" id="frequency" value={frequency} onChange={handleFrequencyChange} required>
                 <option value="none">No Repeat</option>
                 <option value="daily">Daily</option>
                 <option value="weekly">Weekly</option>
@@ -59,8 +67,6 @@ function Form({ onClose }){
                 <p> This chore will take place on {fixDate(selectedDate)}.</p>
             )}
         </div>
-
-
         </>
     )
 };
