@@ -10,12 +10,9 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-// New route for the About page
-app.get('/about', (req, res) => {
-    res.send('About Page');
-  });
 
-app.get('/chores', async (req, res) => {
+
+app.get('/api/chores', async (req, res) => {
     try {
       const result = await pool.query('SELECT * FROM chores'); // Replace 'tasks' with your table name
       res.json(result.rows); // Send back the rows as a JSON response

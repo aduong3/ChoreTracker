@@ -18,21 +18,40 @@ function Form({ onClose }){
         setSelectedDate(e.target.value);
     }
 
-    const fixDate = (dateString) => {
+    const fixDate = (dateString, frequency) => {
         const [year, month, day] = dateString.split('-');
         let displayDate = new Date(year, month - 1, day);
 
-        return displayDate.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        })
+        if(frequency === 'none'){
+            return displayDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+            })
+        }
+        if(frequency === 'weekly'){
+            return daysofWeek[displayDate.getDay()]
+        }
+        if(frequency === 'monthly'){
+            let nth = displayDate.getDate();
+            if (nth > 3 && nth < 21){
+                return nth + "th";
+            }
+            switch (nth % 10){
+                case 1: return nth + "st";
+                case 2: return nth + "nd";
+                case 3: return nth + "rd";
+                default: return nth + "th";
+            }
+        }
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         // await saveChore({ choreName, selectedDate, points, frequency});
     }
+
+    const daysofWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     return(
         <>
@@ -59,12 +78,17 @@ function Form({ onClose }){
             <button onClick={onClose}>Cancel</button>
             </div>
         </form>
-            
-            {frequency != 'none' && selectedDate && (
-                <p>This chore will repeat {frequency} starting on {fixDate(selectedDate)}.</p>
-            )}
             {frequency === 'none' && selectedDate && (
-                <p> This chore will take place on {fixDate(selectedDate)}.</p>
+                <p> This chore will take place once on {fixDate(selectedDate,frequency)}.</p>
+            )}
+            {frequency === 'daily' && (
+                <p>This chore will repeat {frequency}.</p>
+            )}
+            {frequency === 'weekly' && selectedDate && (
+                <p>This chore will repeat {frequency} every {fixDate(selectedDate,frequency)}.  </p>
+            )}
+            {frequency === 'monthly' && selectedDate && (
+                <p>This chore will repeat {frequency} on the {fixDate(selectedDate,frequency)}.</p>
             )}
         </div>
         </>
