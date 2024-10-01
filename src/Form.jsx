@@ -8,6 +8,8 @@ function Form({ onClose }){
     const [selectedDate, setSelectedDate] = useState('');
     const [points, setPoints] = useState(0);
     const [frequency, setFrequency] = useState('none');
+    const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     
 
     const handleFrequencyChange = (e) => {
@@ -48,8 +50,46 @@ function Form({ onClose }){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // await saveChore({ choreName, selectedDate, points, frequency});
-    }
+        
+        if (points < 1 || points > 20) {
+            setError('Must be between 1-20 points.');
+            return;
+        }
+
+        const choreData = {
+            choreName,
+            date: selectedDate,
+            points: Number(points),
+            frequency,
+        };
+
+        try{
+            const response = await fetch('http://localhost:3000/api/chores', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(choreData),
+            });
+
+            if (!response.ok){
+                throw new Error('Failed to add chore');
+            }
+            const result = await response.json();
+            setSuccessMessage(`Chore added successfully at: ${result.id}`);
+            console.log(successMessage);
+
+            setChoreName('');
+            setSelectedDate('');
+            setPoints(1);
+            setFrequency('none');
+
+        }
+        catch (error){
+            setError(error.message);
+        }
+
+    };
 
     const daysofWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
