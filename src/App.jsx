@@ -3,10 +3,12 @@ import {useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMagnifyingGlass, faDollarSign } from '@fortawesome/free-solid-svg-icons'
 import Form from './Form'
+import ViewChore from './ViewChore'
 
 
 function App() {
   const [showForm, setShowForm] = useState(false);
+  const [showChores, setShowChores] = useState(false);
   
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -14,6 +16,14 @@ function App() {
 
   const handleCloseForm = () => {
     setShowForm(false);
+  }
+
+  const toggleChores = () => {
+    setShowChores(!showChores);
+  }
+
+  const handleCloseChores = () => {
+    setShowChores(false);
   }
 
   return (
@@ -28,7 +38,7 @@ function App() {
           <FontAwesomeIcon icon={faPlus} id="plus-icon"/>
             <span>Add Chores</span>
           </button>
-          <button>
+          <button onClick={toggleChores}>
           <FontAwesomeIcon icon={faMagnifyingGlass} id="magnify-glass"/>
             <span>View Chores</span>
           </button>
@@ -39,7 +49,7 @@ function App() {
         </div>
       </div>
       {showForm && <Form onClose={handleCloseForm} />}
-      
+      {showChores && <ViewChore onClose={handleCloseChores}/>}
 
     </>
   )
