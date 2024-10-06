@@ -39,6 +39,21 @@ app.post('/api/chores', async (req, res) => {
   }
 });
 
+app.delete('/api/chores/:id', async (req,res) => {
+  const { id } = req.params;
+
+  try{
+    const result = await pool.query('DELETE FROM chores WHERE id = $1 RETURNING *', [id]);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: 'Chore not found'});
+    }
+    res.status(200).json({message:'Chore deleted successfully'});
+  } catch (error){
+    console.error('Error deleting chore:', error);
+    res.status(500).send('Server Error');
+  }
+});
 
 
 

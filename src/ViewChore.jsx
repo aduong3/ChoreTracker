@@ -12,6 +12,17 @@ const frequencyOrder = {
     'monthly': 3,
 };
 
+const deleteChore = async (id) => {
+    try{
+        await fetch(`http://localhost:3000/api/chores/${id}`, {
+            method: 'DELETE',
+        });
+        setChores((prevChores) => prevChores.filter((chore) => chore.id !== id));
+    } catch(error){
+        console.error('Error deleting chore:', error);
+    }
+};
+
 useEffect(() => {
     const fetchChores = async () => {
         try{
@@ -44,6 +55,7 @@ if (loading) {
     return <p>Loading chores...</p>;
 }
 
+
 return (
     <>
     <div>
@@ -52,6 +64,8 @@ return (
             {chores.map((chore) => (
                 <li key={chore.id}>
                     <strong>{chore.name}</strong> - Points: {chore.points} - Frequency: {chore.frequency} - Next Repeat Date {new Date(chore.date).toLocaleDateString()}
+                    <button onClick={() => deleteChore(chore.id)}>Delete</button>
+                    <button onClick={() => editChore(chore)}>Edit</button>
                 </li>
             ))}
         </ul>
