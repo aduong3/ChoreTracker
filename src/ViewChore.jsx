@@ -12,6 +12,25 @@ const frequencyOrder = {
     'monthly': 3,
 };
 
+const completeChore = async (choreId, chorePoints) => {
+    try{
+        const response = await fetch(`http://localhost:3000/api/chores/complete/${choreId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({points: chorePoints}),
+        });
+        if (response.ok){
+            alert("Chore completed, add point functionality.");
+        } else{
+            console.error("Failed to complete chore.");
+        }
+    } catch(error){
+        console.error("Error completing chore:", error)
+    }
+};
+
 const deleteChore = async (id) => {
     try{
         await fetch(`http://localhost:3000/api/chores/${id}`, {
@@ -63,6 +82,7 @@ return (
         <ul>
             {chores.map((chore) => (
                 <li key={chore.id}>
+                    <button onClick={() => completeChore(chore.id, chore.points)}>Completed</button>
                     <strong>{chore.name}</strong> - Points: {chore.points} - Frequency: {chore.frequency} - Next Repeat Date {new Date(chore.date).toLocaleDateString()}
                     <button onClick={() => deleteChore(chore.id)}>Delete</button>
                     <button onClick={() => editChore(chore)}>Edit</button>
