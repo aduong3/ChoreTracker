@@ -25,13 +25,15 @@ const completeChore = async (choreId, chorePoints, frequency, currentDate) => {
         nextDate = null;
     }
 
+    console.log("Points being sent:", chorePoints);
+    
     try{
         const response = await fetch(`http://localhost:3000/api/chores/complete/${choreId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({nextDate, chorePoints}),
+            body: JSON.stringify({nextDate, chorePoints: Number(chorePoints)}),
         });
         if (response.ok){
             alert(`Chore completed. You earned ${chorePoints} points!`);

@@ -16,11 +16,13 @@ app.get('/', (req, res) => {
 
 app.put('/api/chores/complete/:id', async (req,res) => {
   const { id } = req.params;
-  const { nextDate, points } = req.body;
+  const { nextDate, chorePoints } = req.body;
+
+  console.log("Points received:", chorePoints);
 
   try{
     await pool.query('UPDATE chores SET date = $1 WHERE id = $2', [nextDate, id]);
-    totalPoints += points;
+    totalPoints += Number(chorePoints);
     console.log(`Total Points: ${totalPoints}`);
 
     res.status(200).send({message: 'Chore completed', totalPoints});
