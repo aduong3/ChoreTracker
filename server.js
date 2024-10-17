@@ -8,11 +8,27 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+let totalPoints = 0; //temporary points tracker
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+app.put('/api/chores/complete/:id', async (req,res) => {
+  const { id } = req.params;
+  const { nextDate, points } = req.body;
 
+  try{
+    await pool.query('UPDATE chores SET date = $1 WHERE id = $2', [nextDate, id]);
+    totalPoints += points;
+    console.log(`Total Points: ${totalPoints}`);
+
+    res.status(200).send({message: 'Chore completed', totalPoints});
+  } catch(error){
+    console.error('Error completing chore:', error);
+    res.status(500).send('Server error');
+  }
+});
 
 app.get('/api/chores', async (req, res) => {
     try {

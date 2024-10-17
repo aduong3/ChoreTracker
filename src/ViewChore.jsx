@@ -12,17 +12,29 @@ const frequencyOrder = {
     'monthly': 3,
 };
 
-const completeChore = async (choreId, chorePoints) => {
+const completeChore = async (choreId, chorePoints, frequency, currentDate) => {
+    let nextDate = new Date(currentDate);
+
+    if(frequency === 'daily'){
+        nextDate.setDate(nextDate.getDate() + 1);
+    } else if (frequency === 'weekly') {
+        nextDate.setDate(nextDate.getDate() + 7);
+    } else if (frequency === 'monthly') {
+        nextDate.setMonth(nextDate.getMonth() + 1);
+    } else {
+        nextDate = null;
+    }
+
     try{
         const response = await fetch(`http://localhost:3000/api/chores/complete/${choreId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({points: chorePoints}),
+            body: JSON.stringify({nextDate, chorePoints}),
         });
         if (response.ok){
-            alert("Chore completed, add point functionality.");
+            alert(`Chore completed. You earned ${chorePoints} points!`);
         } else{
             console.error("Failed to complete chore.");
         }
@@ -82,7 +94,7 @@ return (
         <ul>
             {chores.map((chore) => (
                 <li key={chore.id}>
-                    <button onClick={() => completeChore(chore.id, chore.points)}>Completed</button>
+                    <button onClick={() => completeChore(chore.id, chore.points, chore.frequency, chore.date)}>Completed</button>
                     <strong>{chore.name}</strong> - Points: {chore.points} - Frequency: {chore.frequency} - Next Repeat Date {new Date(chore.date).toLocaleDateString()}
                     <button onClick={() => deleteChore(chore.id)}>Delete</button>
                     <button onClick={() => editChore(chore)}>Edit</button>
