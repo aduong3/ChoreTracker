@@ -73,6 +73,23 @@ app.delete('/api/chores/:id', async (req,res) => {
   }
 });
 
+app.put('/api/chores/:id', async (req,res) => {
+  const { id } = req.params;
+  const { choreName, date, points, frequency } = req.body;
+  try{
+    const result = await pool.query('UPDATE chores SET name = $1, date = $2, points = $3, frequency = $4 WHERE id = $5 RETURNING *',
+    [choreName, date, points, frequency, id]
+    );
+    if(result.rowCount === 0) {
+      return res.status(404).json({message: 'Chore not found'});
+    }
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error('Error updating chore:', error);
+    res.status(500).send('Server Error');
+  }
+});
+
 
 
 app.listen(PORT, () => {

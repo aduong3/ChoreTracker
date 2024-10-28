@@ -3,11 +3,11 @@ import {useState} from 'react';
 import PropTypes from 'prop-types';
 
 
-function Form({ onClose }){
-    const [choreName, setChoreName] = useState('');
-    const [selectedDate, setSelectedDate] = useState('');
-    const [points, setPoints] = useState(0);
-    const [frequency, setFrequency] = useState('none');
+function Form({initialData = {} , onSubmit, onClose }){
+    const [choreName, setChoreName] = useState(initialData.name || '');
+    const [selectedDate, setSelectedDate] = useState(initialData.date || '');
+    const [points, setPoints] = useState(initialData.points || 0);
+    const [frequency, setFrequency] = useState(initialData.frequency || 'none');
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     
@@ -64,25 +64,33 @@ function Form({ onClose }){
         };
 
         try{
-            const response = await fetch('http://localhost:3000/api/chores', {
+            const response = initialData.id
+            ? await fetch(`http://localhost:3000/api/chores/${initialData.id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify(choreData),
+            })
+            : await fetch('http://localhost:3000/api/chores', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(choreData),
             });
 
             if (!response.ok){
-                throw new Error('Failed to add chore');
+                throw new Error(initialData.id ? 'Failed to update chore' : 'Failed to add chore');
             }
             const result = await response.json();
-            setSuccessMessage(`Chore added successfully at: ${result.id}`);
+            setSuccessMessage(`Chore ${initialData.id ? 'updated' : 'added'} successfully!`);
             console.log(successMessage);
 
+            if(!initialData.id) {
             setChoreName('');
             setSelectedDate('');
             setPoints(1);
             setFrequency('none');
+            } else {
+                onClose();
+            }
 
         }
         catch (error){
