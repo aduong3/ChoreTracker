@@ -106,7 +106,7 @@ function Form({initialData = {} , onSubmit, onClose }){
         <div id="form-container">
         <form onSubmit={handleSubmit}>
             <label htmlFor="chore-title">Chore Name:</label>
-            <input type="text" name="chore-title" id="chore-title" value={choreName} onChange={(e) => setChoreName(e.target.value)} required></input>
+            <input type="text" name="chore-title" id="chore-title" value={choreName} onChange={(e) => setChoreName(e.target.value)} autoComplete="off" required></input>
 
             <label htmlFor="chore-date">Pick which date:</label>
             <input type="date" name="chore-date" id="chore-date" value={selectedDate} onChange={handleDateChange} required></input>

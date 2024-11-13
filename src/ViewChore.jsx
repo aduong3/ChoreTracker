@@ -1,3 +1,4 @@
+import './ViewChore.css';
 import React, { useEffect, useState} from 'react';
 import Form from './Form';
 
@@ -90,10 +91,7 @@ const fetchChores = async () => {
     try{
         const response = await fetch('http://localhost:3000/api/chores');
         const data = await response.json();
-        const sortedChores = data.sort((a,b) => {
-            const freqDiff = frequencyOrder[a.frequency] - frequencyOrder[b.frequency];
-            return freqDiff === 0 ? new Date(a.date) - new Date(b.date) : freqDiff;
-        });
+        const sortedChores = data.sort((a,b) =>  new Date(a.date) - new Date(b.date));
         setChores(sortedChores);
         setLoading(false);
     } catch (error) {
@@ -108,16 +106,7 @@ useEffect(() => {
             const response = await fetch('http://localhost:3000/api/chores');
             const data = await response.json();
 
-            const sortedChores = data.sort((a,b) => {
-                const freqDiff = frequencyOrder[a.frequency] - frequencyOrder[b.frequency];
-
-                if(freqDiff === 0){
-                    return new Date(a.date) - new Date(b.date);
-                }
-
-                return freqDiff;
-
-            });
+            const sortedChores = data.sort((a,b) => new Date(a.date) - new Date(b.date));
             setChores(sortedChores);
             setLoading(false);
         }
@@ -137,7 +126,7 @@ if (loading) {
 
 return (
     <>
-    <div>
+    <div id="viewChoreForm">
         <h1>Chores List</h1>
         {isEditing ? (
             <Form
@@ -155,8 +144,9 @@ return (
             ))}
         </ul>
             )}
-    </div>
     <button onClick={onClose}>Back</button>
+    </div>
+    
     </>
 );
 

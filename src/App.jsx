@@ -48,6 +48,7 @@ function App() {
           </button>
         </div>
       </div>
+      <footer>Test</footer>
       {showForm && <Form onClose={handleCloseForm} />}
       {showChores && <ViewChore onClose={handleCloseChores}/>}
 
