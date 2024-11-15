@@ -9,6 +9,7 @@ import ViewChore from './ViewChore'
 function App() {
   const [showForm, setShowForm] = useState(false);
   const [showChores, setShowChores] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -28,6 +29,13 @@ function App() {
 
   return (
     <> 
+    {!isLoggedIn && 
+    <div>
+      <button>Log In</button>
+      <button>Sign Up</button>
+    </div>
+      }
+    {isLoggedIn &&
       <div id="main-container">
         <div id="home-info">
           <h2>Points: #</h2>
@@ -48,6 +56,7 @@ function App() {
           </button>
         </div>
       </div>
+      }
       <footer>Test</footer>
       {showForm && <Form onClose={handleCloseForm} />}
       {showChores && <ViewChore onClose={handleCloseChores}/>}
