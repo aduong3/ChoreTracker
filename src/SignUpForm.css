@@ -1,0 +1,16 @@
+div{
+    justify-content: center;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+form label{
+    font-size: 20px;
+    margin: 2px 0;
+}
+form input{
+    margin-bottom: 4px;
+}

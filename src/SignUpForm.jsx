@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PropTypes from 'prop-types';
+import './SignUpForm.css';
 
 const SignUpForm = ({ onClose }) => {
     const [email, setEmail] = useState("");
@@ -35,12 +36,17 @@ return(
     <>
     <div>
         <form onSubmit={handleSubmit}>
-            <label htmlFor="email">Email:</label>
-            <input id="email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <label htmlFor="email" id="emailLabel">Email:</label>
+
+            <input id="email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="off" required />
+
             <label htmlFor="password">Password:</label>
+
             <input id="password" name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <div>
             <button type="submit">Sign Up</button>
             <button onClick={onClose}>Cancel</button>
+            </div>
         </form>
     </div>
     </>

@@ -5,6 +5,7 @@ import { faPlus, faMagnifyingGlass, faDollarSign } from '@fortawesome/free-solid
 import Form from './Form';
 import ViewChore from './ViewChore';
 import SignUpForm from './SignUpForm';
+import LogInForm from './LogInForm';
 
 
 
@@ -13,6 +14,7 @@ function App() {
   const [showChores, setShowChores] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
+  const [showLogIn, setShowLogIn] = useState(false);
   
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -33,17 +35,24 @@ function App() {
   const handleSignUpClick = () => {
     setShowSignUp(true);
   }
+  const handleLogInClick = () => {
+    setShowLogIn(true);
+  }
 
   return (
     <> 
     {!isLoggedIn && 
     <div id="loggedOutButtons">
-      <button>Log In</button>
-      <button onClick={handleSignUpClick}>Sign Up</button>
+      <button onClick={handleLogInClick}>Log In</button>
+      <button  onClick={handleSignUpClick}>Sign Up</button>
     </div>
       }
     {showSignUp && (
-      <SignUpForm setIsLoggedIn={setIsLoggedIn} onClose={() => setShowSignUp(false)} />
+      <SignUpForm onClose={() => setShowSignUp(false)} />
+    )
+    }
+    {showLogIn && (
+      <LogInForm onClose={() => setShowLogIn(false)} />
     )}
     {isLoggedIn &&
       <div id="main-container">
