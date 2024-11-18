@@ -1,15 +1,18 @@
 import './App.css'
 import {useState} from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faMagnifyingGlass, faDollarSign } from '@fortawesome/free-solid-svg-icons'
-import Form from './Form'
-import ViewChore from './ViewChore'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faMagnifyingGlass, faDollarSign } from '@fortawesome/free-solid-svg-icons';
+import Form from './Form';
+import ViewChore from './ViewChore';
+import SignUpForm from './SignUpForm';
+
 
 
 function App() {
   const [showForm, setShowForm] = useState(false);
   const [showChores, setShowChores] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
   
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -27,14 +30,21 @@ function App() {
     setShowChores(false);
   }
 
+  const handleSignUpClick = () => {
+    setShowSignUp(true);
+  }
+
   return (
     <> 
     {!isLoggedIn && 
-    <div>
+    <div id="loggedOutButtons">
       <button>Log In</button>
-      <button>Sign Up</button>
+      <button onClick={handleSignUpClick}>Sign Up</button>
     </div>
       }
+    {showSignUp && (
+      <SignUpForm setIsLoggedIn={setIsLoggedIn} onClose={() => setShowSignUp(false)} />
+    )}
     {isLoggedIn &&
       <div id="main-container">
         <div id="home-info">

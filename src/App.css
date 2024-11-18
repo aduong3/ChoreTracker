@@ -14,10 +14,13 @@
   position: relative;
 }
 
-#home-info, #home-buttons{
+#home-info, #home-buttons, #loggedOutButtons{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+#loggedOutButtons button{
+  width: 100px;
 }
 
 #home-info{

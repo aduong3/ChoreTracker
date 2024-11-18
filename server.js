@@ -38,7 +38,7 @@ app.put('/api/chores/complete/:id', async (req,res) => {
 //-------------------------------GET CHORES ROUTE-------------------------------------
 app.get('/api/chores', async (req, res) => {
     try {
-      const result = await pool.query('SELECT * FROM chores'); // Replace 'tasks' with your table name
+      const result = await pool.query('SELECT * FROM chores');
       res.json(result.rows); // Send back the rows as a JSON response
     } catch (error) {
       console.error('Error fetching chores:', error);
@@ -96,15 +96,25 @@ app.put('/api/chores/:id', async (req,res) => {
 //------------------------------------SIGN UP ROUTE-------------------------------------------------
 app.post('/api/users/signup', async(req,res) => {
   const {email, password} = req.body;
+
+  if(!email || !password){
+    return res.status(400).json({mesage: 'Email and password are required'});
+  }
+
   try{
     const hashedPassword = await bcrypt.hash(password,10);
     const result = await pool.query(
-      'INSERT INTO users (email,password) VALUES ($1,$2) RETURN id, email',
+      'INSERT INTO users (email,password) VALUES ($1,$2) RETURNING id, email',
       [email,hashedPassword]
     );
-    res.status(201).json(result.rows[0]);
+
+
+    res.status(201).json({message: "User registered successfully"});
   } catch(error){
     console.error('Error signing up:', error);
+  if (error.code === '23505') {
+      return res.status(400).json({ message: 'Email already exists' });
+  }
     res.status(500).send('Server Error');
   }
 });
@@ -128,6 +138,12 @@ app.post('/api/users/login', async (req,res) =>{
   }
 })
 
+//-------------------------------------TESTING ROUTE------------------------------------
+// app.post('/api/users/signup', (req, res) => {
+//   console.log('Signup route hit!');
+//   console.log('Request body:', req.body);
+//   res.send('Test response');
+// });
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
