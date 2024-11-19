@@ -34,9 +34,21 @@ function App() {
 
   const handleSignUpClick = () => {
     setShowSignUp(true);
+    if(showLogIn == true){
+      setShowLogIn(false);
+    }
   }
+
   const handleLogInClick = () => {
     setShowLogIn(true);
+    if(showSignUp == true){
+      setShowSignUp(false);
+    }
+  }
+
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
   }
 
   return (
@@ -52,7 +64,7 @@ function App() {
     )
     }
     {showLogIn && (
-      <LogInForm onClose={() => setShowLogIn(false)} />
+      <LogInForm onClose={() => setShowLogIn(false)} setIsLoggedIn={setIsLoggedIn}/>
     )}
     {isLoggedIn &&
       <div id="main-container">
@@ -74,6 +86,7 @@ function App() {
             <span>Reward Shop</span>
           </button>
         </div>
+        <button onClick={handleLogOut}>Log Out</button>
       </div>
       }
       <footer>Test</footer>

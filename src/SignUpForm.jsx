@@ -1,11 +1,11 @@
 import { useState } from "react";
-import PropTypes from 'prop-types';
 import './SignUpForm.css';
 
 const SignUpForm = ({ onClose }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [success,setSuccess] = useState(false);
 
 const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,9 +22,8 @@ try{
     }
 
     const result = await response.json();
-    localStorage.setItem("token", result.token);
-    setIsLoggedIn(true);
     console.log(result.message);
+    setSuccess(true);
     onClose();
 } catch(error){
     setError(error.message);
@@ -51,10 +50,6 @@ return(
     </div>
     </>
 );
-};
-
-SignUpForm.propTypes = {
-    onClose: PropTypes.func.isRequired,
 };
 
 export default SignUpForm;

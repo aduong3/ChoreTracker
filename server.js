@@ -108,8 +108,8 @@ app.post('/api/users/signup', async(req,res) => {
       [email,hashedPassword]
     );
 
-
-    res.status(201).json({message: "User registered successfully"});
+    const token = jwt.sign({ id: result.rows[0].id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.status(201).json({message: "User registered successfully", token});
   } catch(error){
     console.error('Error signing up:', error);
   if (error.code === '23505') {
@@ -130,13 +130,13 @@ app.post('/api/users/login', async (req,res) =>{
       return res.status(401).json({message: "Invalid credentials"});
     }
     
-    const token = jwt.sign({id: user.id}, 'your_jwt_secret', {expiresIn: '1h'});
+    const token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: '1d'});
     res.json({token, user: {id: user.id, email: user.email} });
   } catch(error){
     console.error('Error loggin in', error);
     res.status(500).send("Server error");
   }
-})
+});
 
 //-------------------------------------TESTING ROUTE------------------------------------
 // app.post('/api/users/signup', (req, res) => {
