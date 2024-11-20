@@ -11,8 +11,6 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-
-let totalPoints = 0; //temporary points tracker
 //-----------------------------MAIN ROUTE-------------------------------------------
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -37,18 +35,21 @@ const authToken = (req,res,next) => {
 
 };
 //-----------------------------COMPLETED CHORES ROUTE--------------------------------
-app.put('/api/chores/complete/:id', async (req,res) => {
+app.put('/api/chores/complete/:id', authToken, async (req,res) => {
   const { id } = req.params;
   const { nextDate, chorePoints } = req.body;
+  const userId = req.user.id;
 
-  console.log("Points received:", chorePoints);
+  //console.log("Points received:", chorePoints);
 
   try{
-    await pool.query('UPDATE chores SET date = $1 WHERE id = $2', [nextDate, id]);
-    totalPoints += Number(chorePoints);
-    console.log(`Total Points: ${totalPoints}`);
+    await pool.query('UPDATE chores SET date = $1 WHERE id = $2 AND user_id = $3', [nextDate, id, userId]);
 
-    res.status(200).send({message: 'Chore completed', totalPoints});
+    const result = await pool.query('UPDATE users SET points = points + $1 WHERE id = $2 RETURNING points', [chorePoints, userId])
+    // totalPoints += Number(chorePoints);
+    // console.log(`Total Points: ${totalPoints}`);
+
+    res.status(200).send({message: 'Chore completed', totalPoints: result.rows[0].points});
   } catch(error){
     console.error('Error completing chore:', error);
     res.status(500).send('Server error');
@@ -82,11 +83,12 @@ app.post('/api/chores', authToken, async (req, res) => {
   }
 });
 //----------------------------------DELETE CHORE ROUTE---------------------------------------
-app.delete('/api/chores/:id', async (req,res) => {
+app.delete('/api/chores/:id', authToken, async (req,res) => {
   const { id } = req.params;
+  const userId = req.user.id;
 
   try{
-    const result = await pool.query('DELETE FROM chores WHERE id = $1 RETURNING *', [id]);
+    const result = await pool.query('DELETE FROM chores WHERE id = $1 AND user_id = $2 RETURNING *', [id, userId]);
 
     if (result.rowCount === 0) {
       return res.status(404).json({ message: 'Chore not found'});
@@ -158,6 +160,19 @@ app.post('/api/users/login', async (req,res) =>{
     res.status(500).send("Server error");
   }
 });
+//------------------------------------GET POINTS--------------------------------------------------
+app.get('/api/users/points', authToken, async (req,res) => {
+  try{
+    const result = await pool.query('SELECT points FROM users WHERE id = $1', [req.user.id]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({message: "User not found"});
+    }
+    res.json({points: result.rows[0].points});
+  } catch (error){
+    console.error("Error getting points:", error);
+    res.status(500).send("Server Error");
+  }
+})
 
 //-------------------------------------TESTING ROUTE------------------------------------
 // app.post('/api/users/signup', (req, res) => {

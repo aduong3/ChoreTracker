@@ -1,5 +1,5 @@
 import './App.css'
-import {useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMagnifyingGlass, faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import Form from './Form';
@@ -15,6 +15,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
   const [showLogIn, setShowLogIn] = useState(false);
+  const [userPoints, setUserPoints] = useState(0);
   
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -51,6 +52,29 @@ function App() {
     setIsLoggedIn(false);
   }
 
+  const fetchUserPoints = async () => {
+    try{
+      const response = await fetch('http://localhost:3000/api/users/points', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      if(response.ok){
+        const result = await response.json();
+        setUserPoints(result.points);
+      } else {
+        console.error("Failed to fetch user points.");
+      }
+    } catch (error){
+      console.error('Error fetching points:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserPoints();
+  }, []);
+
   return (
     <> 
     {!isLoggedIn && 
@@ -69,8 +93,7 @@ function App() {
     {isLoggedIn &&
       <div id="main-container">
         <div id="home-info">
-          <h2>Points: #</h2>
-          <h2>Amount of Chores: #</h2>
+          <h2>Points: {userPoints}</h2>
         </div>
         <div id="home-buttons">
           <button onClick={toggleForm}>
@@ -91,7 +114,7 @@ function App() {
       }
       <footer>Test</footer>
       {showForm && <Form onClose={handleCloseForm} />}
-      {showChores && <ViewChore onClose={handleCloseChores}/>}
+      {showChores && <ViewChore onClose={handleCloseChores} setUserPoints={setUserPoints}/>}
 
     </>
   )

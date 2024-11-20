@@ -2,7 +2,7 @@ import './ViewChore.css';
 import React, { useEffect, useState} from 'react';
 import Form from './Form';
 
-function ViewChore({onClose}){
+function ViewChore({onClose, setUserPoints}){
 
 const [chores, setChores] = useState([]);
 const [loading, setLoading] = useState(true);
@@ -36,10 +36,15 @@ const completeChore = async (choreId, chorePoints, frequency, currentDate) => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
             },
             body: JSON.stringify({nextDate, chorePoints: Number(chorePoints)}),
         });
         if (response.ok){
+            const result = await response.json();
+            setUserPoints(result.totalPoints);
+            fetchChores();
+            console.log(result.totalPoints);
             alert(`Chore completed. You earned ${chorePoints} points!`);
         } else{
             console.error("Failed to complete chore.");
@@ -53,8 +58,12 @@ const deleteChore = async (id) => {
     try{
         await fetch(`http://localhost:3000/api/chores/${id}`, {
             method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
         });
-        setChores((prevChores) => prevChores.filter((chore) => chore.id !== id));
+        //setChores((prevChores) => prevChores.filter((chore) => chore.id !== id));
+        fetchChores();
     } catch(error){
         console.error('Error deleting chore:', error);
     }
