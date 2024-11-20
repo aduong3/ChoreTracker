@@ -17,6 +17,25 @@ let totalPoints = 0; //temporary points tracker
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
+//-----------------------------AUTHENTICATE TOKEN-------------------------------------------
+const authToken = (req,res,next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if(!token){
+    return res.status(401).json({message: 'Access Token Required'});
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err,user) => {
+    if(err){
+      return res.status(403).json({message: 'Invalid or Expired Token'});
+    }
+
+    req.user = user;
+    next();
+  });
+
+};
 //-----------------------------COMPLETED CHORES ROUTE--------------------------------
 app.put('/api/chores/complete/:id', async (req,res) => {
   const { id } = req.params;
@@ -36,9 +55,10 @@ app.put('/api/chores/complete/:id', async (req,res) => {
   }
 });
 //-------------------------------GET CHORES ROUTE-------------------------------------
-app.get('/api/chores', async (req, res) => {
+app.get('/api/chores', authToken, async (req, res) => {
+
     try {
-      const result = await pool.query('SELECT * FROM chores');
+      const result = await pool.query('SELECT * FROM chores WHERE user_id = $1 ORDER BY date ASC', [req.user.id]);
       res.json(result.rows); // Send back the rows as a JSON response
     } catch (error) {
       console.error('Error fetching chores:', error);
@@ -46,13 +66,14 @@ app.get('/api/chores', async (req, res) => {
     }
   });
 //-------------------------------CREATE NEW CHORES ROUTE---------------------------------
-app.post('/api/chores', async (req, res) => {
+app.post('/api/chores', authToken, async (req, res) => {
   const { choreName, date, points, frequency } = req.body;
+  const user_id = req.user.id;
 
   try{
     const result = await pool.query(
-      'INSERT INTO chores (name, date, points, frequency) VALUES ($1,$2,$3,$4) RETURNING *',
-      [choreName, date, points, frequency]
+      'INSERT INTO chores (name, date, points, frequency, user_id) VALUES ($1,$2,$3,$4,$5) RETURNING *',
+      [choreName, date, points, frequency, user_id]
     );
     res.status(201).json(result.rows[0]);
   } catch (error){
@@ -77,7 +98,7 @@ app.delete('/api/chores/:id', async (req,res) => {
   }
 });
 //------------------------------------UPDATE/EDIT CHORES ROUTE------------------------------------
-app.put('/api/chores/:id', async (req,res) => {
+app.put('/api/chores/:id', authToken, async (req,res) => {
   const { id } = req.params;
   const { choreName, date, points, frequency } = req.body;
   try{

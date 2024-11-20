@@ -64,15 +64,20 @@ function Form({initialData = {} , onSubmit, onClose }){
         };
 
         try{
+            const authHeaders = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            };
+
             const response = initialData.id
             ? await fetch(`http://localhost:3000/api/chores/${initialData.id}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json'},
+                headers: authHeaders,
                 body: JSON.stringify(choreData),
             })
             : await fetch('http://localhost:3000/api/chores', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                headers: authHeaders,
                 body: JSON.stringify(choreData),
             });
 

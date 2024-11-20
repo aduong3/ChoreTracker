@@ -66,11 +66,13 @@ const editChore = (chore) => {
 }
 
 const updateChore = async (updatedChore) => {
+    const token = localStorage.getItem('token');
     try{
         const response = await fetch(`http://localhost:3000/api/chores/${currentChore.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
             },
             body: JSON.stringify(updatedChore),
         });
@@ -78,7 +80,7 @@ const updateChore = async (updatedChore) => {
             alert('Chore updated successfully!');
             setIsEditing(false);
             setCurrentChore(null);
-            fetchChores();
+            fetchChores(); //refresh chores list
         } else{
             console.error('Failed to update chore.');
         }
@@ -88,11 +90,18 @@ const updateChore = async (updatedChore) => {
 };
 
 const fetchChores = async () => {
+    const token = localStorage.getItem('token');
     try{
-        const response = await fetch('http://localhost:3000/api/chores');
+        const response = await fetch('http://localhost:3000/api/chores', {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
         const data = await response.json();
-        const sortedChores = data.sort((a,b) =>  new Date(a.date) - new Date(b.date));
-        setChores(sortedChores);
+        //const sortedChores = data.sort((a,b) =>  new Date(a.date) - new Date(b.date));
+        //setChores(sortedChores);
+        setChores(data);
         setLoading(false);
     } catch (error) {
         console.error('Error fetching chores:', error);
@@ -103,11 +112,16 @@ const fetchChores = async () => {
 useEffect(() => {
     const fetchChores = async () => {
         try{
-            const response = await fetch('http://localhost:3000/api/chores');
+            const response = await fetch('http://localhost:3000/api/chores', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
             const data = await response.json();
 
-            const sortedChores = data.sort((a,b) => new Date(a.date) - new Date(b.date));
-            setChores(sortedChores);
+            //const sortedChores = data.sort((a,b) => new Date(a.date) - new Date(b.date));
+            //setChores(sortedChores);
+            setChores(data);
             setLoading(false);
         }
         catch(error){
