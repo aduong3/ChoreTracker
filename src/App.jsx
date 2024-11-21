@@ -6,6 +6,7 @@ import Form from './Form';
 import ViewChore from './ViewChore';
 import SignUpForm from './SignUpForm';
 import LogInForm from './LogInForm';
+import Shop from './Shop';
 
 
 
@@ -15,22 +16,15 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
   const [showLogIn, setShowLogIn] = useState(false);
+  const [showShop, setShowShop] = useState(false);
   const [userPoints, setUserPoints] = useState(0);
   
   const toggleForm = () => {
     setShowForm(!showForm);
   }
 
-  const handleCloseForm = () => {
-    setShowForm(false);
-  }
-
   const toggleChores = () => {
     setShowChores(!showChores);
-  }
-
-  const handleCloseChores = () => {
-    setShowChores(false);
   }
 
   const handleSignUpClick = () => {
@@ -50,6 +44,12 @@ function App() {
   const handleLogOut = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
+    setUserPoints(0);
+  }
+
+  const toggleShop = () => {
+    setShowShop(!showShop);
+    //console.log(showShop);
   }
 
   const fetchUserPoints = async () => {
@@ -80,7 +80,7 @@ function App() {
     {!isLoggedIn && 
     <div id="loggedOutButtons">
       <button onClick={handleLogInClick}>Log In</button>
-      <button  onClick={handleSignUpClick}>Sign Up</button>
+      <button onClick={handleSignUpClick}>Sign Up</button>
     </div>
       }
     {showSignUp && (
@@ -88,7 +88,7 @@ function App() {
     )
     }
     {showLogIn && (
-      <LogInForm onClose={() => setShowLogIn(false)} setIsLoggedIn={setIsLoggedIn}/>
+      <LogInForm onClose={() => setShowLogIn(false)} setIsLoggedIn={setIsLoggedIn} setUserPoints={setUserPoints}/>
     )}
     {isLoggedIn &&
       <div id="main-container">
@@ -105,7 +105,7 @@ function App() {
             <span>View Chores</span>
           </button>
           <button>
-          <FontAwesomeIcon icon={faDollarSign} id="dollar-sign"/>
+          <FontAwesomeIcon icon={faDollarSign} id="dollar-sign" onClick={toggleShop}/>
             <span>Reward Shop</span>
           </button>
         </div>
@@ -113,9 +113,9 @@ function App() {
       </div>
       }
       <footer>Test</footer>
-      {showForm && <Form onClose={handleCloseForm} />}
-      {showChores && <ViewChore onClose={handleCloseChores} setUserPoints={setUserPoints}/>}
-
+      {showForm && <Form onClose={toggleForm} />}
+      {showChores && <ViewChore onClose={toggleChores} setUserPoints={setUserPoints}/>}
+      {showShop && <Shop onClose={toggleShop}/>}
     </>
   )
 };

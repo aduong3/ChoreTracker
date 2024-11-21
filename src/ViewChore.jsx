@@ -1,8 +1,9 @@
 import './ViewChore.css';
 import React, { useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
 import Form from './Form';
 
-function ViewChore({onClose, setUserPoints}){
+const ViewChore = ({ onClose, setUserPoints}) => {
 
 const [chores, setChores] = useState([]);
 const [loading, setLoading] = useState(true);
@@ -174,6 +175,11 @@ return (
 );
 
 
+};
+
+ViewChore.PropTypes = {
+    onClose: PropTypes.func.isRequired,
+    setUserPoints: PropTypes.func.isRequired,
 };
 
 export default ViewChore;

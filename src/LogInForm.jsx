@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from 'prop-types';
 import './SignUpForm.css';
 
-const LogInForm = ({ onClose, setIsLoggedIn }) => {
+const LogInForm = ({ onClose, setIsLoggedIn, setUserPoints }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error,setError] = useState("");
@@ -23,6 +23,19 @@ try{
     localStorage.setItem("token", result.token);
     setIsLoggedIn(true);
     setError("");
+
+    const pointsResponse = await fetch('http://localhost:3000/api/users/points', {
+        headers: {
+            'Authorization': `Bearer ${result.token}`
+        },
+    });
+    if(pointsResponse.ok){
+        const pointsResult = await pointsResponse.json();
+        setUserPoints(pointsResult.points);
+    } else {
+        setUserPoints(0);
+    }
+
     onClose();
 } catch(error){
     setError(error.message);
@@ -53,6 +66,8 @@ return(
 
 LogInForm.propTypes = {
     onClose: PropTypes.func.isRequired,
+    setIsLoggedIn: PropTypes.func.isRequired,
+    setUserPoints: PropTypes.func.isRequired,
 };
 
 export default LogInForm;

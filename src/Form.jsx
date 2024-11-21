@@ -149,7 +149,9 @@ function Form({initialData = {} , onSubmit, onClose }){
 };
 
 Form.propTypes = {
+    initialData: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
 };
 
 export default Form;

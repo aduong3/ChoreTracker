@@ -1,5 +1,7 @@
 import { useState } from "react";
+import PropTypes from 'prop-types';
 import './SignUpForm.css';
+
 
 const SignUpForm = ({ onClose }) => {
     const [email, setEmail] = useState("");
@@ -51,5 +53,9 @@ return(
     </>
 );
 };
+
+SignUpForm.propTypes = {
+    onClose: PropTypes.func.isRequired,
+}
 
 export default SignUpForm;
