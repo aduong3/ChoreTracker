@@ -44,6 +44,9 @@ function App() {
   const handleLogOut = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
+    setShowForm(false);
+    setShowChores(false);
+    setShowShop(false);
     setUserPoints(0);
   }
 

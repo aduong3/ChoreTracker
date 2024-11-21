@@ -1,0 +1,28 @@
+#form-container{
+    background-color:rgb(5, 5, 32);
+    position: absolute;
+    width: 920px;
+    height: 800px;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+#buttons-container{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    flex: 1;
+    overflow-y: scroll;
+}
+
+.shopItems{
+    width: 225px;
+    height: 200px;
+}
+
+#mainShop-buttons{
+    display: flex;
+    justify-content: center;
+}
