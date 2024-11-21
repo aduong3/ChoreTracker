@@ -177,7 +177,7 @@ return (
 
 };
 
-ViewChore.PropTypes = {
+ViewChore.propTypes = {
     onClose: PropTypes.func.isRequired,
     setUserPoints: PropTypes.func.isRequired,
 };

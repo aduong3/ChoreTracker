@@ -20,9 +20,27 @@
 .shopItems{
     width: 225px;
     height: 200px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 16px;
 }
 
 #mainShop-buttons{
     display: flex;
     justify-content: center;
+}
+.fontAwesomeIcons{
+    flex: 1;
+}
+#gamePadIcon{
+    width: 120px;
+}
+.selectIcons{
+    width: 30px;
+}
+#iconSelector{
+    font-size: 15px;
 }
