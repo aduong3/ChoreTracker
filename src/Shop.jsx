@@ -91,8 +91,10 @@ const Shop = ({onClose}) => {
             });
             const result = await response.json();
             setShopItems(result);
+
         } catch(error){
             console.error("Failed to fetch Shop Rewards", error);
+
         }
     };
 
@@ -108,8 +110,10 @@ const Shop = ({onClose}) => {
                 });
                 const result = await response.json();
                 setShopItems(result);
+
             } catch(error){
                 console.error("Failed to fetch Shop Rewards", error);
+
             }
         };
         fetchShopItems();
@@ -119,9 +123,10 @@ const Shop = ({onClose}) => {
 
 return (
     <>
-    {!isCreatingItem ? (
     <div id="form-container">
-        
+        <h2>Shop Rewards</h2>
+    {!isCreatingItem ? (
+        <>
         <div id="buttons-container">
         {/* <button className="shopItems"><FontAwesomeIcon icon={faGamepad} id="gamePadIcon" className="fontAwesomeIcons"/>Buy a new game:<span>3000</span></button> */}
         {shopItems.map((shopItem) => (
@@ -132,9 +137,9 @@ return (
         <button onClick={handleCreateItem}>Create a Reward</button>
         <button onClick={onClose}>Back</button>
         </div>
-    </div>
+        </>
     ) : (
-        <div id="form-container">
+        
             <form onSubmit={handleSubmit}>
                 <label htmlFor="description">Description:</label>
                 <input type="text" name="description" id="description" placeholder="For example: Buy A Game" value={description} onChange={(e) => setDescription(e.target.value)} autoComplete="off"/>
@@ -153,12 +158,11 @@ return (
                 />
                 <div>
                 <input type="submit"/>
-                <button onClick={() => {onClose(); handleCreateItem(false);}}>Back</button>
+                <button onClick={handleCreateItem}>Back</button>
                 </div>
             </form>
-            
-        </div>
     )}
+    </div>
     </>
 );
 

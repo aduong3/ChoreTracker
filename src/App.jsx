@@ -107,8 +107,8 @@ function App() {
           <FontAwesomeIcon icon={faMagnifyingGlass} id="magnify-glass"/>
             <span>View Chores</span>
           </button>
-          <button>
-          <FontAwesomeIcon icon={faDollarSign} id="dollar-sign" onClick={toggleShop}/>
+          <button onClick={toggleShop}>
+          <FontAwesomeIcon icon={faDollarSign} id="dollar-sign" />
             <span>Reward Shop</span>
           </button>
         </div>

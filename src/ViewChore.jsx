@@ -10,12 +10,12 @@ const [loading, setLoading] = useState(true);
 const [isEditing, setIsEditing] = useState(false);
 const [currentChore, setCurrentChore] = useState(null);
 
-const frequencyOrder = {
-    'none': 0,
-    'daily': 1,
-    'weekly': 2,
-    'monthly': 3,
-};
+// const frequencyOrder = {
+//     'none': 0,
+//     'daily': 1,
+//     'weekly': 2,
+//     'monthly': 3,
+// };
 
 const completeChore = async (choreId, chorePoints, frequency, currentDate) => {
     let nextDate = new Date(currentDate);
