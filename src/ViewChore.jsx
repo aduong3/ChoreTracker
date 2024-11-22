@@ -141,7 +141,7 @@ useEffect(() => {
     }
 
     fetchChores();
-}, [frequencyOrder]);
+}, []);
 
 if (loading) {
     return <p>Loading chores...</p>;

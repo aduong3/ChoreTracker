@@ -172,7 +172,30 @@ app.get('/api/users/points', authToken, async (req,res) => {
     console.error("Error getting points:", error);
     res.status(500).send("Server Error");
   }
-})
+});
+//------------------------------------CREATE SHOP REWARDS--------------------------------------------------
+app.post('/api/shop', authToken, async (req,res) => {
+  const {description, price, selectedIcon} = req.body;
+  const user_id = req.user.id;
+
+  try{
+    const result = await pool.query('INSERT INTO shop (text, price, user_id, icon) VALUES ($1,$2,$3,$4) RETURNING *', [description, price, user_id, selectedIcon]);
+  res.status(201).json(result.rows[0]);
+  } catch (error){
+    console.error('Error adding Shop Item:', error);
+    res.status(500).send('Server error');
+  }
+});
+//------------------------------------GET SHOP REWARDS--------------------------------------------------
+app.get('/api/shop', authToken, async (req,res) => {
+  try {
+    const result = await pool.query('SELECT * FROM shop WHERE user_id = $1', [req.user.id]);
+    res.json(result.rows); // Send back the rows as a JSON response
+  } catch (error) {
+    console.error('Error fetching Shop Items:', error);
+    res.status(500).send('Server error');
+  }
+});
 
 //-------------------------------------TESTING ROUTE------------------------------------
 // app.post('/api/users/signup', (req, res) => {
