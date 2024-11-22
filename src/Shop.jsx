@@ -5,8 +5,11 @@ import { faGamepad } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Select from 'react-select';
 
-const Shop = ({onClose, onChange}) => {
+const Shop = ({onClose}) => {
     const [isCreatingItem, setIsCreatingItem] = useState(false);
+    const [description, setDescription] = useState("");
+    const [price, setPrice] = useState(0);
+    const [selectedIcon, setSelectedIcon] = useState(null);
 
     const options = [
         {value: 'faGamepad', label: <><FontAwesomeIcon icon={faGamepad} /></>}
@@ -16,6 +19,8 @@ const Shop = ({onClose, onChange}) => {
         control: (provided) => ({
             ...provided,
             backgroundColor: '#3b3b3b',
+            width: '120px',
+            height: '35px',
         }),
         menu: (provided) => ({
             ...provided,
@@ -30,6 +35,7 @@ const Shop = ({onClose, onChange}) => {
         singleValue: (provided) => ({
             ...provided,
             color: '#ffffff',
+            fontSize: 20,
         }),
     };
 
@@ -64,17 +70,19 @@ return (
         <div id="form-container">
             <form>
                 <label htmlFor="description">Description:</label>
-                <input type="text" name="description" id="description" placeholder="For example: Buy A Game"/>
+                <input type="text" name="description" id="description" placeholder="For example: Buy A Game" value={description} onChange={(e) => setDescription(e.target.value)}/>
                 <label htmlFor="price">Price:</label>
-                <input type="number" name="price" id="price" min="100"/>
+                <input type="number" name="price" id="price" min="100" placeholder="100 or more" value={price} onChange={(e) => setPrice(e.target.value)}/>
                 <label htmlFor="iconSelector">Select an Icon:</label>
                 <Select
                 options={options}
-                onChange={onChange}
                 styles={customStyles}
                 placeholder="Select an icon"
                 id="iconSelector"
                 name="iconSelector"
+                isSearchable={false}
+                value={selectedIcon}
+                onChange={(selected) => setSelectedIcon(selected)}
                 />
                 <div>
                 <input type="submit"/>
