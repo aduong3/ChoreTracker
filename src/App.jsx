@@ -118,7 +118,7 @@ function App() {
       <footer>Test</footer>
       {showForm && <Form onClose={toggleForm} />}
       {showChores && <ViewChore onClose={toggleChores} setUserPoints={setUserPoints}/>}
-      {showShop && <Shop onClose={toggleShop}/>}
+      {showShop && <Shop onClose={toggleShop} userPoints={userPoints} setUserPoints={setUserPoints}/>}
     </>
   )
 };

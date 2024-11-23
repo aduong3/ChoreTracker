@@ -5,7 +5,7 @@ import { faGamepad } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Select from 'react-select';
 
-const Shop = ({onClose}) => {
+const Shop = ({onClose, userPoints, setUserPoints}) => {
     const [isCreatingItem, setIsCreatingItem] = useState(false);
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState(0);
@@ -119,7 +119,34 @@ const Shop = ({onClose}) => {
         fetchShopItems();
     }, []);
 
+    const handlePurchase = async (shopItem) => {
+        if (userPoints < shopItem.price){
+            alert('Not enough points to purchase this item!');
+            return;
+        }
 
+        const currentPoints = userPoints - shopItem.price;
+        console.log(currentPoints);
+        try{
+            const response = await fetch(`http://localhost:3000/api/users/points`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+                body: JSON.stringify({currentPoints}),
+            });
+            if(!response.ok){
+                throw new Error("Failed to update user points");
+            }
+            const result = await response.json();
+            console.log(result);
+            setUserPoints(result.totalPoints);
+            alert(`'${shopItem.text}' has been purchased`);
+        } catch(error){
+            console.error("Error updating user points:", error);
+        }
+    };
 
 return (
     <>
@@ -130,7 +157,10 @@ return (
         <div id="buttons-container">
         {/* <button className="shopItems"><FontAwesomeIcon icon={faGamepad} id="gamePadIcon" className="fontAwesomeIcons"/>Buy a new game:<span>3000</span></button> */}
         {shopItems.map((shopItem) => (
-            <button key={shopItem.id} className="shopItems"><FontAwesomeIcon icon={iconMapping[shopItem.icon]} id="gamePadIcon" className="fontAwesomeIcons"/>{shopItem.text}:<span>{shopItem.price}</span></button>
+            <button key={shopItem.id} className="shopItems" onClick={() => handlePurchase(shopItem)}>
+                <FontAwesomeIcon icon={iconMapping[shopItem.icon]} id="gamePadIcon" className="fontAwesomeIcons"/>
+                {shopItem.text}:<span>{shopItem.price}</span>
+            </button>
         ))}
         </div>
         <div id="mainShop-buttons">
@@ -170,6 +200,8 @@ return (
 
 Shop.propTypes = {
     onClose: PropTypes.func.isRequired,
+    setUserPoints: PropTypes.func.isRequired,
+    userPoints: PropTypes.number.isRequired,
 };
 
 export default Shop;

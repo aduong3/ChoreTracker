@@ -69,12 +69,12 @@ app.get('/api/chores', authToken, async (req, res) => {
 //-------------------------------CREATE NEW CHORES ROUTE---------------------------------
 app.post('/api/chores', authToken, async (req, res) => {
   const { choreName, date, points, frequency } = req.body;
-  const user_id = req.user.id;
+  const userId = req.user.id;
 
   try{
     const result = await pool.query(
       'INSERT INTO chores (name, date, points, frequency, user_id) VALUES ($1,$2,$3,$4,$5) RETURNING *',
-      [choreName, date, points, frequency, user_id]
+      [choreName, date, points, frequency, userId]
     );
     res.status(201).json(result.rows[0]);
   } catch (error){
@@ -173,13 +173,27 @@ app.get('/api/users/points', authToken, async (req,res) => {
     res.status(500).send("Server Error");
   }
 });
+//------------------------------------UPDATE POINTS--------------------------------------------------
+app.put('/api/users/points', authToken, async (req,res) => {
+  const {currentPoints} = req.body;
+  const userId = req.user.id;
+  try{
+    const result = await pool.query('UPDATE users SET points = $1 WHERE id = $2 RETURNING points', [currentPoints, userId]);
+
+    res.status(200).json({message: "Points updated", totalPoints: result.rows[0].points});
+  } catch(error){
+    console.error("Error updating user's points:", error);
+    res.status(500).send("Server Error");
+  }
+});
+
 //------------------------------------CREATE SHOP REWARDS--------------------------------------------------
 app.post('/api/shop', authToken, async (req,res) => {
   const {description, price, selectedIcon} = req.body;
-  const user_id = req.user.id;
+  const userId = req.user.id;
 
   try{
-    const result = await pool.query('INSERT INTO shop (text, price, user_id, icon) VALUES ($1,$2,$3,$4) RETURNING *', [description, price, user_id, selectedIcon]);
+    const result = await pool.query('INSERT INTO shop (text, price, user_id, icon) VALUES ($1,$2,$3,$4) RETURNING *', [description, price, userId, selectedIcon]);
   res.status(201).json(result.rows[0]);
   } catch (error){
     console.error('Error adding Shop Item:', error);
