@@ -16,6 +16,14 @@ function App() {
   const [showLogIn, setShowLogIn] = useState(false);
   const [showShop, setShowShop] = useState(false);
   const [userPoints, setUserPoints] = useState(0);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+      fetchUserPoints(token);
+    }
+  },[])
   
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -53,7 +61,7 @@ function App() {
     //console.log(showShop);
   }
 
-  const fetchUserPoints = async () => {
+  const fetchUserPoints = async (token) => {
     try{
       const response = await fetch('http://localhost:3000/api/users/points', {
         headers: {
@@ -75,6 +83,33 @@ function App() {
   useEffect(() => {
     fetchUserPoints();
   }, []);
+
+// const validateToken = async () => {
+//   const token = localStorage.getItem('token');
+//   if (token){
+//     try{
+//       const response = await fetch('http://localhost:3000/api/auth/validate', {
+//         method: "POST",
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       });
+//       if (response.ok){
+//         setIsLoggedIn(true)
+//       } else {
+//         localStorage.removeItem('token');
+//         setIsLoggedIn(false);
+//       }
+//     } catch (error) {
+//       console.error("Error validating token:", error);
+//       setIsLoggedIn(false);
+//     }
+//   }
+// }
+// useEffect(()=> {
+//   validateToken();
+// }, []);
+
 
   return (
     <> 
