@@ -15,6 +15,7 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
+
 //-----------------------------AUTHENTICATE TOKEN-------------------------------------------
 const authToken = (req,res,next) => {
   const authHeader = req.headers['authorization'];
@@ -31,9 +32,10 @@ const authToken = (req,res,next) => {
 
     req.user = user;
     next();
-  });
+  })
 
 };
+
 //-----------------------------COMPLETED CHORES ROUTE--------------------------------
 app.put('/api/chores/complete/:id', authToken, async (req,res) => {
   const { id } = req.params;
@@ -55,6 +57,7 @@ app.put('/api/chores/complete/:id', authToken, async (req,res) => {
     res.status(500).send('Server error');
   }
 });
+
 //-------------------------------GET CHORES ROUTE-------------------------------------
 app.get('/api/chores', authToken, async (req, res) => {
 
@@ -66,6 +69,7 @@ app.get('/api/chores', authToken, async (req, res) => {
       res.status(500).send('Server error');
     }
   });
+
 //-------------------------------CREATE NEW CHORES ROUTE---------------------------------
 app.post('/api/chores', authToken, async (req, res) => {
   const { choreName, date, points, frequency } = req.body;
@@ -82,6 +86,7 @@ app.post('/api/chores', authToken, async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
 //----------------------------------DELETE CHORE ROUTE---------------------------------------
 app.delete('/api/chores/:id', authToken, async (req,res) => {
   const { id } = req.params;
@@ -99,6 +104,7 @@ app.delete('/api/chores/:id', authToken, async (req,res) => {
     res.status(500).send('Server Error');
   }
 });
+
 //------------------------------------UPDATE/EDIT CHORES ROUTE------------------------------------
 app.put('/api/chores/:id', authToken, async (req,res) => {
   const { id } = req.params;
@@ -116,6 +122,7 @@ app.put('/api/chores/:id', authToken, async (req,res) => {
     res.status(500).send('Server Error');
   }
 });
+
 //------------------------------------SIGN UP ROUTE-------------------------------------------------
 app.post('/api/users/signup', async(req,res) => {
   const {email, password} = req.body;
@@ -141,6 +148,7 @@ app.post('/api/users/signup', async(req,res) => {
     res.status(500).send('Server Error');
   }
 });
+
 //------------------------------------LOG IN ROUTE--------------------------------------------------
 app.post('/api/users/login', async (req,res) =>{
   const {email, password} = req.body;
@@ -160,6 +168,7 @@ app.post('/api/users/login', async (req,res) =>{
     res.status(500).send("Server error");
   }
 });
+
 //------------------------------------GET POINTS--------------------------------------------------
 app.get('/api/users/points', authToken, async (req,res) => {
   try{
@@ -173,6 +182,7 @@ app.get('/api/users/points', authToken, async (req,res) => {
     res.status(500).send("Server Error");
   }
 });
+
 //------------------------------------UPDATE POINTS--------------------------------------------------
 app.put('/api/users/points', authToken, async (req,res) => {
   const {currentPoints} = req.body;
@@ -200,6 +210,7 @@ app.post('/api/shop', authToken, async (req,res) => {
     res.status(500).send('Server error');
   }
 });
+
 //------------------------------------GET SHOP REWARDS--------------------------------------------------
 app.get('/api/shop', authToken, async (req,res) => {
   try {

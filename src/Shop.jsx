@@ -99,23 +99,23 @@ const Shop = ({onClose, userPoints, setUserPoints}) => {
     };
 
     useEffect(() => {
-        const fetchShopItems = async () => {
-            const token = localStorage.getItem('token');
-            try{
-                const response = await fetch('http://localhost:3000/api/shop', {
-                    method: 'GET',
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                const result = await response.json();
-                setShopItems(result);
+        // const fetchShopItems = async () => {
+        //     const token = localStorage.getItem('token');
+        //     try{
+        //         const response = await fetch('http://localhost:3000/api/shop', {
+        //             method: 'GET',
+        //             headers: {
+        //                 Authorization: `Bearer ${token}`,
+        //             },
+        //         });
+        //         const result = await response.json();
+        //         setShopItems(result);
 
-            } catch(error){
-                console.error("Failed to fetch Shop Rewards", error);
+        //     } catch(error){
+        //         console.error("Failed to fetch Shop Rewards", error);
 
-            }
-        };
+        //     }
+        // };
         fetchShopItems();
     }, []);
 
@@ -126,7 +126,7 @@ const Shop = ({onClose, userPoints, setUserPoints}) => {
         }
 
         const currentPoints = userPoints - shopItem.price;
-        console.log(currentPoints);
+        //console.log(currentPoints);
         try{
             const response = await fetch(`http://localhost:3000/api/users/points`, {
                 method: 'PUT',
@@ -140,7 +140,7 @@ const Shop = ({onClose, userPoints, setUserPoints}) => {
                 throw new Error("Failed to update user points");
             }
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
             setUserPoints(result.totalPoints);
             alert(`'${shopItem.text}' has been purchased`);
         } catch(error){
@@ -169,7 +169,6 @@ return (
         </div>
         </>
     ) : (
-        
             <form onSubmit={handleSubmit}>
                 <label htmlFor="description">Description:</label>
                 <input type="text" name="description" id="description" placeholder="For example: Buy A Game" value={description} onChange={(e) => setDescription(e.target.value)} autoComplete="off"/>

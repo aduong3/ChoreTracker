@@ -8,8 +8,6 @@ import SignUpForm from './SignUpForm';
 import LogInForm from './LogInForm';
 import Shop from './Shop';
 
-
-
 function App() {
   const [showForm, setShowForm] = useState(false);
   const [showChores, setShowChores] = useState(false);
@@ -115,7 +113,7 @@ function App() {
         <button onClick={handleLogOut}>Log Out</button>
       </div>
       }
-      <footer>Test</footer>
+      <footer></footer>
       {showForm && <Form onClose={toggleForm} />}
       {showChores && <ViewChore onClose={toggleChores} setUserPoints={setUserPoints}/>}
       {showShop && <Shop onClose={toggleShop} userPoints={userPoints} setUserPoints={setUserPoints}/>}

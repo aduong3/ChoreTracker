@@ -119,26 +119,26 @@ const fetchChores = async () => {
     }
 };
 
-useEffect(() => {
-    const fetchChores = async () => {
-        try{
-            const response = await fetch('http://localhost:3000/api/chores', {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                },
-            });
-            const data = await response.json();
+useEffect(() => { //no need to reiterate the function.
+    // const fetchChores = async () => {
+    //     try{
+    //         const response = await fetch('http://localhost:3000/api/chores', {
+    //             headers: {
+    //                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    //             },
+    //         });
+    //         const data = await response.json();
 
-            //const sortedChores = data.sort((a,b) => new Date(a.date) - new Date(b.date));
-            //setChores(sortedChores);
-            setChores(data);
-            setLoading(false);
-        }
-        catch(error){
-            console.error('Error fetching chores:', error);
-            setLoading(false);
-        }
-    }
+    //         //const sortedChores = data.sort((a,b) => new Date(a.date) - new Date(b.date));
+    //         //setChores(sortedChores);
+    //         setChores(data);
+    //         setLoading(false);
+    //     }
+    //     catch(error){
+    //         console.error('Error fetching chores:', error);
+    //         setLoading(false);
+    //     }
+    // }
 
     fetchChores();
 }, []);
