@@ -128,7 +128,7 @@ function Form({initialData = {} , onSubmit, onClose }){
             </select>
             <div id="form-buttons">
             <input type="submit"></input>
-            <button onClick={onClose}>Cancel</button>
+            <button type="button" onClick={onClose}>Cancel</button>
             </div>
         </form>
             {frequency === 'none' && selectedDate && (
@@ -149,9 +149,9 @@ function Form({initialData = {} , onSubmit, onClose }){
 };
 
 Form.propTypes = {
-    initialData: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
+    initialData: PropTypes.object,
+    onClose: PropTypes.func,
+    onSubmit: PropTypes.func,
 };
 
 export default Form;

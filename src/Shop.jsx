@@ -187,7 +187,7 @@ return (
                 />
                 <div>
                 <input type="submit"/>
-                <button onClick={handleCreateItem}>Back</button>
+                <button type="button" onClick={handleCreateItem}>Back</button>
                 </div>
             </form>
     )}

@@ -17,14 +17,7 @@ function App() {
   const [showShop, setShowShop] = useState(false);
   const [userPoints, setUserPoints] = useState(0);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsLoggedIn(true);
-      fetchUserPoints(token);
-    }
-  },[])
-  
+
   const toggleForm = () => {
     setShowForm(!showForm);
   }
@@ -61,7 +54,7 @@ function App() {
     //console.log(showShop);
   }
 
-  const fetchUserPoints = async (token) => {
+  const fetchUserPoints = async () => {
     try{
       const response = await fetch('http://localhost:3000/api/users/points', {
         headers: {
@@ -81,8 +74,14 @@ function App() {
   };
 
   useEffect(() => {
+    let token = localStorage.getItem('token');
+    if(token)
+      setIsLoggedIn(true);
+    if(isLoggedIn)
     fetchUserPoints();
-  }, []);
+    
+
+  }, [isLoggedIn]);
 
 // const validateToken = async () => {
 //   const token = localStorage.getItem('token');
