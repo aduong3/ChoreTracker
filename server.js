@@ -138,7 +138,7 @@ app.post('/api/users/signup', async(req,res) => {
       [email,hashedPassword]
     );
 
-    const token = jwt.sign({ id: result.rows[0].id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: result.rows[0].id }, process.env.JWT_SECRET,);
     res.status(201).json({message: "User registered successfully", token});
   } catch(error){
     console.error('Error signing up:', error);
@@ -161,7 +161,8 @@ app.post('/api/users/login', async (req,res) =>{
       return res.status(401).json({message: "Invalid credentials"});
     }
     
-    const token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: '30s'});
+    const token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: '1d'});
+    console.log(jwt.decode(token));
     res.json({token, user: {id: user.id, email: user.email} });
   } catch(error){
     console.error('Error loggin in', error);
@@ -219,6 +220,21 @@ app.get('/api/shop', authToken, async (req,res) => {
   } catch (error) {
     console.error('Error fetching Shop Items:', error);
     res.status(500).send('Server error');
+  }
+});
+
+//------------------------------------VALIDATE TOKEN--------------------------------------------------
+app.post('/api/users/validate-token', (req,res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token){
+    return res.status(401).json({message: 'Token missing'});
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    res.status(200).json({valid: true, userId: decoded.id});
+  } catch(error) {
+    console.error('Token validation error:', error);
+    res.status(401).json({valid: false, message: 'Token is invalid or expired.'});
   }
 });
 

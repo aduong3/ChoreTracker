@@ -74,14 +74,31 @@ function App() {
   };
 
   useEffect(() => {
-    let token = localStorage.getItem('token');
-    if(token)
-      setIsLoggedIn(true);
-    if(isLoggedIn)
-    fetchUserPoints();
-    
-
-  }, [isLoggedIn]);
+    const token = localStorage.getItem('token');
+    if(token){
+      fetch('http://localhost:3000/api/users/validate-token', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+    })
+      .then((response) => {
+        if(response.ok){
+          setIsLoggedIn(true);
+          fetchUserPoints();
+        } else{
+          console.warn('Token invalid or expired. Logging Out.');
+          handleLogOut();
+        }
+      })
+      .catch((error) => {
+        console.error('Token validation error:', error);
+        handleLogOut();
+      });
+    } else {
+      handleLogOut();
+    }
+  }, []);
 
 // const validateToken = async () => {
 //   const token = localStorage.getItem('token');
