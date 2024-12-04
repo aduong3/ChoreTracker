@@ -1,6 +1,5 @@
 import './App.css'
 import React, { useEffect, useState} from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMagnifyingGlass, faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import Form from './Form';
 import ViewChore from './ViewChore';
