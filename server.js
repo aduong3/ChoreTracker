@@ -11,9 +11,16 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+
 //-----------------------------MAIN ROUTE-------------------------------------------
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+app.get('/', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT NOW()');
+    res.json(result.rows[0]);
+  } catch(error){
+    console.error('Error connecting to the database:', error);
+    res.status(500).send('Error connecting to the database.');
+  }
 });
 
 //-----------------------------AUTHENTICATE TOKEN-------------------------------------------
@@ -246,5 +253,5 @@ app.post('/api/users/validate-token', (req,res) => {
 // });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
