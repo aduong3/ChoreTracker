@@ -10,6 +10,7 @@ const SignUpForm = ({ onClose }) => {
     const [success,setSuccess] = useState(false);
 
     const apiURL = import.meta.env.VITE_REACT_APP_API_URL;
+    console.log("API URL:", apiURL);
 
 const handleSubmit = async (e) => {
     e.preventDefault();
