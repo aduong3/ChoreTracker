@@ -48,7 +48,7 @@ return(
             <input id="password" name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             <div>
             <button type="submit">Sign Up</button>
-            <button onClick={onClose}>Cancel</button>
+            <button type="button" onClick={onClose}>Cancel</button>
             </div>
         </form>
     </div>

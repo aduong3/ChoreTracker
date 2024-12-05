@@ -166,8 +166,8 @@ return (
         ))}
         </div>
         <div id="mainShop-buttons">
-        <button onClick={handleCreateItem}>Create a Reward</button>
-        <button onClick={onClose}>Back</button>
+        <button type="button" onClick={handleCreateItem}>Create a Reward</button>
+        <button type="button" onClick={onClose}>Back</button>
         </div>
         </>
     ) : (

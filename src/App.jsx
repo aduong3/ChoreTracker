@@ -150,20 +150,20 @@ function App() {
           <h2>Points: {userPoints}</h2>
         </div>
         <div id="home-buttons">
-          <button onClick={toggleForm}>
+          <button type="button" onClick={toggleForm}>
           <FontAwesomeIcon icon={faPlus} id="plus-icon"/>
             <span>Add Chores</span>
           </button>
-          <button onClick={toggleChores}>
+          <button type="button" onClick={toggleChores}>
           <FontAwesomeIcon icon={faMagnifyingGlass} id="magnify-glass"/>
             <span>View Chores</span>
           </button>
-          <button onClick={toggleShop}>
+          <button type="button" onClick={toggleShop}>
           <FontAwesomeIcon icon={faDollarSign} id="dollar-sign" />
             <span>Reward Shop</span>
           </button>
         </div>
-        <button onClick={handleLogOut}>Log Out</button>
+        <button type="button" onClick={handleLogOut}>Log Out</button>
       </div>
       }
       <footer></footer>
