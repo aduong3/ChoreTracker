@@ -10,6 +10,8 @@ const [loading, setLoading] = useState(true);
 const [isEditing, setIsEditing] = useState(false);
 const [currentChore, setCurrentChore] = useState(null);
 
+const apiURL = import.meta.env.VITE_REACT_APP_API_URL;
+
 // const frequencyOrder = {
 //     'none': 0,
 //     'daily': 1,
@@ -33,7 +35,7 @@ const completeChore = async (choreId, chorePoints, frequency, currentDate) => {
     console.log("Points being sent:", chorePoints);
     
     try{
-        const response = await fetch(`http://localhost:3000/api/chores/complete/${choreId}`, {
+        const response = await fetch(`${apiURL}/api/chores/complete/${choreId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -57,7 +59,7 @@ const completeChore = async (choreId, chorePoints, frequency, currentDate) => {
 
 const deleteChore = async (id) => {
     try{
-        await fetch(`http://localhost:3000/api/chores/${id}`, {
+        await fetch(`${apiURL}/api/chores/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -78,7 +80,7 @@ const editChore = (chore) => {
 const updateChore = async (updatedChore) => {
     const token = localStorage.getItem('token');
     try{
-        const response = await fetch(`http://localhost:3000/api/chores/${currentChore.id}`, {
+        const response = await fetch(`${apiURL}/api/chores/${currentChore.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -102,7 +104,7 @@ const updateChore = async (updatedChore) => {
 const fetchChores = async () => {
     const token = localStorage.getItem('token');
     try{
-        const response = await fetch('http://localhost:3000/api/chores', {
+        const response = await fetch(`${apiURL}/api/chores`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${token}`,

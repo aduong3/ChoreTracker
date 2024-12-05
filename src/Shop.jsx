@@ -12,6 +12,8 @@ const Shop = ({onClose, userPoints, setUserPoints}) => {
     const [selectedIcon, setSelectedIcon] = useState(null);
     const [shopItems, setShopItems] = useState([]);
 
+    const apiURL = import.meta.env.VITE_REACT_APP_API_URL;
+
     const options = [
         {value: 'faGamepad', label: <><FontAwesomeIcon icon={faGamepad} /></>}
     ];
@@ -63,7 +65,7 @@ const Shop = ({onClose, userPoints, setUserPoints}) => {
         };
 
         try{
-            const response = await fetch(`http://localhost:3000/api/shop`, {
+            const response = await fetch(`${apiURL}/api/shop`, {
                 method: "POST",
                 headers: authHeaders,
                 body: JSON.stringify(shopData),
@@ -83,7 +85,7 @@ const Shop = ({onClose, userPoints, setUserPoints}) => {
     const fetchShopItems = async () => {
         const token = localStorage.getItem('token');
         try{
-            const response = await fetch('http://localhost:3000/api/shop', {
+            const response = await fetch(`${apiURL}/api/shop`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -128,7 +130,7 @@ const Shop = ({onClose, userPoints, setUserPoints}) => {
         const currentPoints = userPoints - shopItem.price;
         //console.log(currentPoints);
         try{
-            const response = await fetch(`http://localhost:3000/api/users/points`, {
+            const response = await fetch(`${apiURL}/api/users/points`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

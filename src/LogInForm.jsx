@@ -7,11 +7,13 @@ const LogInForm = ({ onClose, setIsLoggedIn, setUserPoints }) => {
     const [password, setPassword] = useState("");
     const [error,setError] = useState("");
 
+    const apiURL = import.meta.env.VITE_REACT_APP_API_URL;
+
 const handleSubmit = async (e) => {
     e.preventDefault();
 
 try{
-    const response = await fetch('http://localhost:3000/api/users/login', {
+    const response = await fetch(`${apiURL}/api/users/login`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({email,password}),
@@ -24,7 +26,7 @@ try{
     setIsLoggedIn(true);
     setError("");
 
-    const pointsResponse = await fetch('http://localhost:3000/api/users/points', {
+    const pointsResponse = await fetch(`${apiURL}/api/users/points`, {
         headers: {
             'Authorization': `Bearer ${result.token}`
         },

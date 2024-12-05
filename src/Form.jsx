@@ -10,6 +10,8 @@ function Form({initialData = {} , onSubmit, onClose }){
     const [frequency, setFrequency] = useState(initialData.frequency || 'none');
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+
+    const apiURL = import.meta.env.VITE_REACT_APP_API_URL;
     
 
     const handleFrequencyChange = (e) => {
@@ -70,12 +72,12 @@ function Form({initialData = {} , onSubmit, onClose }){
             };
 
             const response = initialData.id
-            ? await fetch(`http://localhost:3000/api/chores/${initialData.id}`, {
+            ? await fetch(`${apiURL}/api/chores/${initialData.id}`, {
                 method: 'PUT',
                 headers: authHeaders,
                 body: JSON.stringify(choreData),
             })
-            : await fetch('http://localhost:3000/api/chores', {
+            : await fetch(`${apiURL}/api/chores`, {
                 method: 'POST',
                 headers: authHeaders,
                 body: JSON.stringify(choreData),

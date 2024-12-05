@@ -9,11 +9,13 @@ const SignUpForm = ({ onClose }) => {
     const [error, setError] = useState("");
     const [success,setSuccess] = useState(false);
 
+    const apiURL = import.meta.env.VITE_REACT_APP_API_URL;
+
 const handleSubmit = async (e) => {
     e.preventDefault();
 
 try{
-    const response = await fetch("http://localhost:3000/api/users/signup", {
+    const response = await fetch(`${apiURL}/api/users/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify({email,password}),

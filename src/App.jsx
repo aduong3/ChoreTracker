@@ -17,6 +17,8 @@ function App() {
   const [showShop, setShowShop] = useState(false);
   const [userPoints, setUserPoints] = useState(0);
 
+  const apiURL = import.meta.env.VITE_REACT_APP_API_URL;
+
 
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -56,7 +58,7 @@ function App() {
 
   const fetchUserPoints = async () => {
     try{
-      const response = await fetch('http://localhost:3000/api/users/points', {
+      const response = await fetch(`${apiURL}/api/users/points`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
@@ -76,7 +78,7 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if(token){
-      fetch('http://localhost:3000/api/users/validate-token', {
+      fetch(`${apiURL}/api/users/validate-token`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
