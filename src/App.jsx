@@ -169,10 +169,10 @@ function App() {
       }
       <footer>
       <div>
-      <FontAwesomeIcon icon={faGithub} /> <a href="https://github.com/aduong3" target="_blank">GitHub</a>
+       <a href="https://github.com/aduong3" target="_blank"><FontAwesomeIcon icon={faGithub} /> <span>GitHub</span></a>
       </div>
       <div>
-      <FontAwesomeIcon icon={faLinkedin} /> <a href="https://www.linkedin.com/in/andrew-duong-6210a0206/" target="_blank">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/andrew-duong-6210a0206/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /> <span>LinkedIn</span></a>
       </div>
       </footer>
       {showForm && <Form onClose={toggleForm} />}
