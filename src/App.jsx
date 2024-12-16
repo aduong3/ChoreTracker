@@ -2,6 +2,7 @@ import './App.css'
 import React, { useEffect, useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMagnifyingGlass, faDollarSign } from '@fortawesome/free-solid-svg-icons';
+import {faLinkedin, faGithub} from '@fortawesome/free-brands-svg-icons';
 import Form from './Form';
 import ViewChore from './ViewChore';
 import SignUpForm from './SignUpForm';
@@ -166,7 +167,14 @@ function App() {
         <button type="button" onClick={handleLogOut}>Log Out</button>
       </div>
       }
-      <footer></footer>
+      <footer>
+      <div>
+      <FontAwesomeIcon icon={faGithub} /> <a href="https://github.com/aduong3" target="_blank">GitHub</a>
+      </div>
+      <div>
+      <FontAwesomeIcon icon={faLinkedin} /> <a href="https://www.linkedin.com/in/andrew-duong-6210a0206/" target="_blank">LinkedIn</a>
+      </div>
+      </footer>
       {showForm && <Form onClose={toggleForm} />}
       {showChores && <ViewChore onClose={toggleChores} setUserPoints={setUserPoints}/>}
       {showShop && <Shop onClose={toggleShop} userPoints={userPoints} setUserPoints={setUserPoints}/>}
