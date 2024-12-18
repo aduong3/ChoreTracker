@@ -1,7 +1,8 @@
 import {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import './Shop.css';
-import { faGamepad } from '@fortawesome/free-solid-svg-icons';
+import { faGamepad, faFilm, faBasketShopping, faCookieBite, faIceCream } from '@fortawesome/free-solid-svg-icons';
+//import {} from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Select from 'react-select';
 
@@ -15,11 +16,19 @@ const Shop = ({onClose, userPoints, setUserPoints}) => {
     const apiURL = import.meta.env.VITE_REACT_APP_API_URL;
 
     const options = [
-        {value: 'faGamepad', label: <><FontAwesomeIcon icon={faGamepad} /></>}
+        {value: 'faGamepad', label: <><FontAwesomeIcon icon={faGamepad} /></>},
+        {value: 'faFilm', label: <><FontAwesomeIcon icon={faFilm} /></>},
+        {value: 'faBasketShopping', label: <><FontAwesomeIcon icon={faBasketShopping} /></>},
+        {value: 'faCookie', label: <><FontAwesomeIcon icon={faCookieBite} /></>},
+        {value: 'faIceCream', label: <><FontAwesomeIcon icon={faIceCream} /></>}
     ];
 
     const iconMapping = {
         faGamepad: faGamepad,
+        faFilm: faFilm,
+        faBasketShopping: faBasketShopping,
+        faCookieBite: faCookieBite,
+        faIceCream: faIceCream,
     };
 
     const customStyles = {
@@ -185,7 +194,7 @@ return (
                 name="iconSelector"
                 isSearchable={false}
                 value={selectedIcon}
-                onChange={(selected) => setSelectedIcon(selected.value)}
+                onChange={(selected) => setSelectedIcon(selected)}
                 />
                 <div>
                 <input type="submit"/>
