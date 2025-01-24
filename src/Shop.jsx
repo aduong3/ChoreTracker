@@ -27,7 +27,7 @@ const Shop = ({onClose, userPoints, setUserPoints}) => {
         faGamepad: faGamepad,
         faFilm: faFilm,
         faBasketShopping: faBasketShopping,
-        faCookieBite: faCookieBite,
+        faCookie: faCookieBite,
         faIceCream: faIceCream,
     };
 
@@ -61,13 +61,11 @@ const Shop = ({onClose, userPoints, setUserPoints}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         const shopData = {
             description,
             price: Number(price),
-            selectedIcon,
+            selectedIcon: selectedIcon.value,
         };
-
         const authHeaders = {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('token')}`,
