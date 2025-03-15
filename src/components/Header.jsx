@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
+import Logo from "./Logo";
 
 function Header() {
   return (
-    <header>
-      <nav className="flex justify-between py-4 px-8 text-xl bg-sky-400 ">
-        <Link to="/">Home</Link>
+    <header className='col-span-full h-full'>
+      <nav className="flex justify-between py-4 px-8 text-xl bg-stone-200 ">
+        <Logo textSize='text-1xl' isLink={true}/>
         <div className='flex gap-8'>
-          <Link to="/app">Stats</Link>
-          <Link to="/chores">Chores</Link>
-          <Link to="/shop">Shop</Link>
+
         </div>
       </nav>
     </header>
