@@ -12,12 +12,12 @@ function Homepage() {
         <p className='text-xl italic'>Keep your chores organized, stay accountable, and reward yourself for staying on top of things!</p>
         </di>
         <div className='flex gap-8'>
-          {isLoggedIn && (
+          {!isLoggedIn && (
             <>
           <Link className='cursor-pointer hover:bg-neutral-200 py-2 px-3 rounded-sm text-xl' to='/app' onClick={()=>{setIsLoggedIn(true)}}>Log In</Link>
          <button className='cursor-pointer hover:bg-neutral-200 py-2 px-3 rounded-sm text-xl'>Sign Up</button>
          </>)}
-         {!isLoggedIn && <Link to='/app' className='cursor-pointer hover:bg-neutral-200 py-2 px-3 rounded-sm text-xl'>Continue</Link>}
+         {isLoggedIn && <Link to='/app' className='cursor-pointer hover:bg-neutral-200 py-2 px-3 rounded-sm text-xl'>Continue</Link>}
         </div>
     </div>
 ;
