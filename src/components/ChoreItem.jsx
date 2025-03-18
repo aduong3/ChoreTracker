@@ -1,7 +1,21 @@
-import { HiOutlineDotsVertical } from "react-icons/hi";
+import { MdModeEditOutline } from "react-icons/md";
+import ClickMenu from "./ClickMenu";
+import { RiDeleteBinFill } from "react-icons/ri";
 
 function ChoreItem({ chore }) {
-  const { title, day, dueDate, status, priority, recurring } = chore;
+  const {
+    title,
+    day,
+    dueDate,
+    status,
+    priority,
+    recurring,
+    id: choreId,
+  } = chore;
+  const daysLeft = Math.ceil(
+    (new Date(dueDate).getTime() - new Date().getTime()) /
+      (1000 * 60 * 60 * 24),
+  );
 
   return (
     <li>
@@ -18,10 +32,28 @@ function ChoreItem({ chore }) {
         <p className="font-bold">{title}</p>
         <p>{status}</p>
         <p>{priority}</p>
-        <p>{recurring}</p>
-        <div className="cursor-pointer self-end">
-          <HiOutlineDotsVertical />{" "}
-        </div>
+        <p>{daysLeft === 0 ? "Today" : `${daysLeft} days left`}</p>
+        <ClickMenu.Menu>
+          <ClickMenu.Toggle id={choreId} />
+          <ClickMenu.List id={choreId}>
+            <ClickMenu.Button
+              onClick={() => {
+                console.log("edit");
+              }}
+              icon={<MdModeEditOutline />}
+            >
+              Edit
+            </ClickMenu.Button>
+            <ClickMenu.Button
+              onClick={() => {
+                console.log("delete");
+              }}
+              icon={<RiDeleteBinFill />}
+            >
+              Delete
+            </ClickMenu.Button>
+          </ClickMenu.List>
+        </ClickMenu.Menu>
       </div>
     </li>
   );

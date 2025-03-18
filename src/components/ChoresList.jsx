@@ -1,11 +1,12 @@
 import ChoreItem from "./ChoreItem";
+import ClickMenu from "./ClickMenu";
 
 const chores = [
   {
     id: 1,
     title: "Do Laundry",
     description: "Wash and dry clothes",
-    dueDate: "2025-03-17",
+    dueDate: "2025-03-20",
     day: "Monday",
     points: 10,
     status: "completed",
@@ -27,7 +28,7 @@ const chores = [
     id: 3,
     title: "Wash Dishes",
     description: "Wash after dinner",
-    dueDate: "2025-03-18",
+    dueDate: "2025-03-21",
     day: "Tuesday",
     points: 5,
     status: "pending",
@@ -38,13 +39,15 @@ const chores = [
 
 function ChoresList() {
   return (
-    <div>
-      <ul className="mt-10 flex flex-col gap-3">
-        {chores.map((chore) => (
-          <ChoreItem chore={chore} key={chore.id} />
-        ))}
-      </ul>
-    </div>
+    <ClickMenu>
+      <div>
+        <ul className="mt-10 flex flex-col gap-3">
+          {chores.map((chore) => (
+            <ChoreItem chore={chore} key={chore.id} />
+          ))}
+        </ul>
+      </div>
+    </ClickMenu>
   );
 }
 
