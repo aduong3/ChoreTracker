@@ -34,7 +34,13 @@ function ChoreItem({ chore }) {
         <p className="font-bold">{title}</p>
         <p>{status}</p>
         <p>{priority}</p>
-        <p>{daysLeft === 0 ? "Today" : `${daysLeft} days left`}</p>
+        <p>
+          {daysLeft === 0
+            ? "Today"
+            : daysLeft === 1
+              ? `${daysLeft} day left`
+              : `${daysLeft} days left`}
+        </p>
         <Modal>
           <ClickMenu.Menu>
             <ClickMenu.Toggle id={choreId} />

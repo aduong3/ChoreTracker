@@ -1,5 +1,3 @@
-import { useContext } from "react";
-
 function ConfirmDelete({ onCloseModal }) {
   return (
     <div className="flex flex-col gap-8">
