@@ -1,6 +1,8 @@
 import { MdModeEditOutline } from "react-icons/md";
 import ClickMenu from "./ClickMenu";
 import { RiDeleteBinFill } from "react-icons/ri";
+import Modal from "./Modal";
+import ConfirmDelete from "./ConfirmDelete";
 
 function ChoreItem({ chore }) {
   const {
@@ -33,27 +35,41 @@ function ChoreItem({ chore }) {
         <p>{status}</p>
         <p>{priority}</p>
         <p>{daysLeft === 0 ? "Today" : `${daysLeft} days left`}</p>
-        <ClickMenu.Menu>
-          <ClickMenu.Toggle id={choreId} />
-          <ClickMenu.List id={choreId}>
-            <ClickMenu.Button
-              onClick={() => {
-                console.log("edit");
-              }}
-              icon={<MdModeEditOutline />}
-            >
-              Edit
-            </ClickMenu.Button>
-            <ClickMenu.Button
-              onClick={() => {
-                console.log("delete");
-              }}
-              icon={<RiDeleteBinFill />}
-            >
-              Delete
-            </ClickMenu.Button>
-          </ClickMenu.List>
-        </ClickMenu.Menu>
+        <Modal>
+          <ClickMenu.Menu>
+            <ClickMenu.Toggle id={choreId} />
+            <ClickMenu.List id={choreId}>
+              <Modal.Open opens="edit">
+                <ClickMenu.Button
+                  onClick={() => {
+                    console.log("edit");
+                  }}
+                  icon={<MdModeEditOutline />}
+                >
+                  Edit
+                </ClickMenu.Button>
+              </Modal.Open>
+
+              <Modal.Open opens="delete">
+                <ClickMenu.Button
+                  onClick={() => {
+                    console.log("delete");
+                  }}
+                  icon={<RiDeleteBinFill />}
+                >
+                  Delete
+                </ClickMenu.Button>
+              </Modal.Open>
+            </ClickMenu.List>
+          </ClickMenu.Menu>
+
+          <Modal.Window name="edit">
+            <span>Editing...</span>
+          </Modal.Window>
+          <Modal.Window name="delete">
+            <ConfirmDelete />
+          </Modal.Window>
+        </Modal>
       </div>
     </li>
   );
