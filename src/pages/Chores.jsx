@@ -10,7 +10,7 @@ function Chores() {
         <h1 className="col-span-full text-3xl text-zinc-800">Chores</h1>
         <ChoreStatList />
       </div>
-      <AddItemButton color="bg-green-300" AddForm={<CreateChoreForm />}>
+      <AddItemButton color="bg-red-300" AddForm={<CreateChoreForm />}>
         Add Chore
       </AddItemButton>
       <ChoresList />

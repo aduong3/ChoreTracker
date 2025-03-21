@@ -1,8 +1,8 @@
 const colorClasses = {
-  red: "bg-red-200",
-  green: "bg-green-200",
-  purple: "bg-purple-200",
-  blue: "bg-blue-200",
+  red: "bg-red-300",
+  green: "bg-green-300",
+  purple: "bg-purple-300",
+  blue: "bg-blue-300",
 };
 
 function Stat({ icon, title, color, value }) {
