@@ -6,13 +6,13 @@ function ConfirmDelete({ onCloseModal }) {
       </h3>
       <div className="flex items-center justify-center gap-24">
         <button
-          className="rounded-md px-3 py-2 hover:bg-zinc-200/70"
+          className="cursor-pointer rounded-md px-3 py-2 hover:bg-zinc-400"
           onClick={onCloseModal}
         >
           Cancel
         </button>
         <button
-          className="rounded-md px-3 py-2 hover:bg-zinc-200/70"
+          className="cursor-pointer rounded-md px-3 py-2 hover:bg-red-600"
           onClick={onCloseModal}
         >
           Confirm

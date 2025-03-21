@@ -1,5 +1,5 @@
 import { HiOutlinePlus } from "react-icons/hi";
-import Modal from "./Modal";
+import Modal from "../Modal";
 import CreateChoreForm from "./CreateChoreForm";
 
 function CreateChore() {

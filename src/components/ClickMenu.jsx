@@ -73,7 +73,7 @@ function Button({ children, onClick, icon }) {
   return (
     <button
       onClick={handleClick}
-      className="flex cursor-pointer items-center gap-4 border-b-1 border-zinc-100 px-4 py-3 hover:bg-zinc-200"
+      className="flex cursor-pointer items-center gap-4 px-4 py-3 hover:bg-zinc-300"
     >
       {icon}
       <span>{children}</span>

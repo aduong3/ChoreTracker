@@ -3,10 +3,10 @@ import {
   MdOutlineFormatListBulleted,
   MdOutlinePercent,
 } from "react-icons/md";
-import Stat from "../components/Stat";
+import Stat from "../Stat";
 import { IoHourglassOutline } from "react-icons/io5";
 
-function StatList() {
+function ChoreStatList() {
   return (
     <>
       <Stat
@@ -32,4 +32,4 @@ function StatList() {
   );
 }
 
-export default StatList;
+export default ChoreStatList;

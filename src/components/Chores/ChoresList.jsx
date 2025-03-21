@@ -1,5 +1,5 @@
 import ChoreItem from "./ChoreItem";
-import ClickMenu from "./ClickMenu";
+import ClickMenu from "../ClickMenu";
 
 const chores = [
   {
@@ -39,15 +39,13 @@ const chores = [
 
 function ChoresList() {
   return (
-    <ClickMenu>
-      <div>
-        <ul className="mt-10 flex flex-col gap-3">
-          {chores.map((chore) => (
-            <ChoreItem chore={chore} key={chore.id} />
-          ))}
-        </ul>
-      </div>
-    </ClickMenu>
+    <div>
+      <ul className="mt-10 flex flex-col gap-3">
+        {chores.map((chore) => (
+          <ChoreItem chore={chore} key={chore.id} />
+        ))}
+      </ul>
+    </div>
   );
 }
 

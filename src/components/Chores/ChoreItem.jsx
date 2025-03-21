@@ -1,8 +1,8 @@
 import { MdModeEditOutline } from "react-icons/md";
-import ClickMenu from "./ClickMenu";
+import ClickMenu from "../ClickMenu";
 import { RiDeleteBinFill } from "react-icons/ri";
-import Modal from "./Modal";
-import ConfirmDelete from "./ConfirmDelete";
+import Modal from "../Modal";
+import ConfirmDelete from "../ConfirmDelete";
 
 function ChoreItem({ chore }) {
   const {
