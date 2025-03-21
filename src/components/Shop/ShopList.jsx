@@ -36,7 +36,7 @@ const fakeShopItems = [
 
 function ShopList() {
   return (
-    <div className="grid grid-cols-4 gap-6">
+    <div className="grid auto-rows-[250px] grid-cols-4 gap-6 py-5">
       {fakeShopItems.map((shopItem) => (
         <ShopItem item={shopItem} key={shopItem.id} />
       ))}
