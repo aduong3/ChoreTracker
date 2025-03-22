@@ -32,7 +32,7 @@ function ChoreItem({ chore }) {
           }
         ></div>
         <p className="font-bold">{title}</p>
-        <p>{status}</p>
+        <p className="uppercase">{status}</p>
         <p>{priority}</p>
         <p>
           {daysLeft === 0

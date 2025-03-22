@@ -23,16 +23,19 @@ function Homepage() {
           <>
             <Link
               className="cursor-pointer rounded-sm px-3 py-2 text-xl hover:bg-neutral-200"
-              to="/app"
+              to="/login"
               onClick={() => {
                 setIsLoggedIn(true);
               }}
             >
               Log In
             </Link>
-            <button className="cursor-pointer rounded-sm px-3 py-2 text-xl hover:bg-neutral-200">
+            <Link
+              to="/signup"
+              className="cursor-pointer rounded-sm px-3 py-2 text-xl hover:bg-neutral-200"
+            >
               Sign Up
-            </button>
+            </Link>
           </>
         )}
         {isLoggedIn && (
