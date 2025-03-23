@@ -6,7 +6,7 @@ function Homepage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <div className="flex min-h-svh max-w-full flex-col items-center justify-center gap-16 bg-neutral-100 px-3 text-center">
+    <div className="flex min-h-svh max-w-full flex-col items-center justify-center gap-16 bg-neutral-50 px-3 text-center">
       <Logo textSize="text-4xl sm:text-5xl" isLink={false} />
       <div className="flex flex-col gap-6">
         <p className="text-md font-bold italic sm:text-xl">
