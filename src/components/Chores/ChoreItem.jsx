@@ -24,16 +24,16 @@ function ChoreItem({ chore }) {
       <div className="grid grid-cols-[10px_1fr_1fr_1fr_1fr_20px] gap-2 border-b-1 border-gray-300 pb-3">
         <div
           className={
-            priority === "high"
+            priority.toLowerCase() === "high"
               ? "bg-red-400"
-              : priority === "medium"
+              : priority.toLowerCase() === "medium"
                 ? "bg-yellow-400"
                 : "bg-green-400"
           }
         ></div>
         <p className="font-bold">{title}</p>
         <p className="uppercase">{status}</p>
-        <p>{priority}</p>
+        <p className="uppercase">{priority}</p>
         <p>
           {daysLeft === 0
             ? "Today"

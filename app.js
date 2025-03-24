@@ -1,7 +1,18 @@
 import express from "express";
 import choresRouter from "./src/router/choresRouter.js";
+import cors from "cors";
 
 const app = express();
+
+app.use(cors());
+
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173",
+//   }),
+// );
+
+// app.options("*", cors());
 
 app.use(express.json());
 
