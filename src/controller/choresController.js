@@ -1,7 +1,7 @@
 import Chores from "./../models/choresModel.js";
 
 export default function choresController() {
-  async function getAllChores(req, res, next) {
+  async function getAllChores(req, res) {
     try {
       const chores = await Chores.find();
 
@@ -19,7 +19,7 @@ export default function choresController() {
     }
   }
 
-  async function createChore(req, res, next) {
+  async function createChore(req, res) {
     try {
       const chore = await Chores.create(req.body);
 
@@ -37,5 +37,26 @@ export default function choresController() {
     }
   }
 
-  return { getAllChores, createChore };
+  async function deleteChore(req, res) {
+    try {
+      const chore = await Chores.findByIdAndDelete(req.params.id);
+      if (!chore) {
+        throw new Error("Unable to find and delete chore.");
+      }
+
+      res.status(204).json({
+        status: "success",
+        data: {
+          chore,
+        },
+      });
+    } catch (err) {
+      res.status(400).json({
+        status: "fail",
+        message: err.message,
+      });
+    }
+  }
+
+  return { getAllChores, createChore, deleteChore };
 }

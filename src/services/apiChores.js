@@ -34,3 +34,20 @@ export async function addNewChore(newChore) {
     console.log(err.message);
   }
 }
+
+export async function deleteChore(id) {
+  try {
+    const res = await fetch(`${BASE_URL}/v1/chores/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      throw new Error("Unable to delete chore.");
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log(err.message);
+  }
+}

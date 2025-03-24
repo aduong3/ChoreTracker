@@ -48,10 +48,8 @@ function ChoresList() {
     queryKey: ["chores"],
     queryFn: fetchAllChores,
   });
-
-  const chores = apichores?.data?.chores;
-
   if (isPending) return <h2>Loading...</h2>;
+  const chores = apichores?.data?.chores;
 
   return (
     <div>

@@ -7,14 +7,26 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 const priorityOptions = ["LOW", "MEDIUM", "HIGH"];
 const recurringOptions = ["DAILY", "WEEKLY", "MONTHLY", "NONE"];
 
-function CreateChoreForm() {
+function CreateChoreForm({ editChore, onCloseModal }) {
   const queryClient = useQueryClient();
-  const [choreTitle, setChoreTitle] = useState("");
-  const [choreDesc, setChoreDesc] = useState("");
-  const [chorePoints, setChorePoints] = useState(1);
-  const [pickedDate, setPickedDate] = useState(new Date());
-  const [chorePrio, setChorePrio] = useState(priorityOptions[0]);
-  const [choreRecur, setChoreRecur] = useState(recurringOptions[0]);
+  const [choreTitle, setChoreTitle] = useState(
+    editChore ? editChore.title : "",
+  );
+  const [choreDesc, setChoreDesc] = useState(
+    editChore ? editChore.description : "",
+  );
+  const [chorePoints, setChorePoints] = useState(
+    editChore ? editChore.points : 1,
+  );
+  const [pickedDate, setPickedDate] = useState(
+    editChore ? editChore.dueDate : new Date(),
+  );
+  const [chorePrio, setChorePrio] = useState(
+    editChore ? editChore.priority : priorityOptions[0],
+  );
+  const [choreRecur, setChoreRecur] = useState(
+    editChore ? editChore.recurring : recurringOptions[0],
+  );
   const mutation = useMutation({
     mutationFn: addNewChore,
     onSuccess: () => {
@@ -41,6 +53,8 @@ function CreateChoreForm() {
     setPickedDate(new Date());
     setChorePrio(priorityOptions[0]);
     setChoreRecur(recurringOptions[0]);
+
+    onCloseModal();
   }
 
   return (

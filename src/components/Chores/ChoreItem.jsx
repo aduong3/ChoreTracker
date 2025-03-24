@@ -3,6 +3,7 @@ import ClickMenu from "../ClickMenu";
 import { RiDeleteBinFill } from "react-icons/ri";
 import Modal from "../Modal";
 import ConfirmDelete from "../ConfirmDelete";
+import CreateChoreForm from "./CreateChoreForm";
 
 function ChoreItem({ chore }) {
   const {
@@ -12,24 +13,23 @@ function ChoreItem({ chore }) {
     status,
     priority,
     recurring,
-    id: choreId,
+    _id: choreId,
   } = chore;
   const daysLeft = Math.ceil(
     (new Date(dueDate).getTime() - new Date().getTime()) /
       (1000 * 60 * 60 * 24),
   );
-
   return (
     <li>
-      <div className="grid grid-cols-[10px_1fr_1fr_1fr_1fr_20px] gap-2 border-b-1 border-gray-300 pb-3">
+      <div className="grid grid-cols-[10px_1fr_1fr_1fr_1fr_20px] items-center gap-2 border-b-1 border-gray-300 pb-3">
         <div
-          className={
+          className={`h-full w-full ${
             priority.toLowerCase() === "high"
               ? "bg-red-400"
               : priority.toLowerCase() === "medium"
                 ? "bg-yellow-400"
                 : "bg-green-400"
-          }
+          }`}
         ></div>
         <p className="font-bold">{title}</p>
         <p className="uppercase">{status}</p>
@@ -70,10 +70,10 @@ function ChoreItem({ chore }) {
           </ClickMenu.Menu>
 
           <Modal.Window name="edit">
-            <span>Editing...</span>
+            <CreateChoreForm editChore={chore} />
           </Modal.Window>
           <Modal.Window name="delete">
-            <ConfirmDelete />
+            <ConfirmDelete id={choreId} />
           </Modal.Window>
         </Modal>
       </div>
