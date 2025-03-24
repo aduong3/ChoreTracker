@@ -51,3 +51,24 @@ export async function deleteChore(id) {
     console.log(err.message);
   }
 }
+
+export async function editChore(chore, id) {
+  try {
+    const res = await fetch(`${BASE_URL}/v1/chores/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(chore),
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to edit chore.");
+    }
+    const data = await res.json();
+
+    return data;
+  } catch (err) {
+    console.log(err.message);
+  }
+}

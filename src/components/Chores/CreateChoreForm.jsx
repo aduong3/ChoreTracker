@@ -1,34 +1,40 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { addNewChore } from "../../services/apiChores";
+import { addNewChore, editChore } from "../../services/apiChores";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const priorityOptions = ["LOW", "MEDIUM", "HIGH"];
 const recurringOptions = ["DAILY", "WEEKLY", "MONTHLY", "NONE"];
 
-function CreateChoreForm({ editChore, onCloseModal }) {
+function CreateChoreForm({ choreToEdit, onCloseModal }) {
   const queryClient = useQueryClient();
   const [choreTitle, setChoreTitle] = useState(
-    editChore ? editChore.title : "",
+    choreToEdit ? choreToEdit.title : "",
   );
   const [choreDesc, setChoreDesc] = useState(
-    editChore ? editChore.description : "",
+    choreToEdit ? choreToEdit.description : "",
   );
   const [chorePoints, setChorePoints] = useState(
-    editChore ? editChore.points : 1,
+    choreToEdit ? choreToEdit.points : 1,
   );
   const [pickedDate, setPickedDate] = useState(
-    editChore ? editChore.dueDate : new Date(),
+    choreToEdit ? choreToEdit.dueDate : new Date(),
   );
   const [chorePrio, setChorePrio] = useState(
-    editChore ? editChore.priority : priorityOptions[0],
+    choreToEdit ? choreToEdit.priority : priorityOptions[0],
   );
   const [choreRecur, setChoreRecur] = useState(
-    editChore ? editChore.recurring : recurringOptions[0],
+    choreToEdit ? choreToEdit.recurring : recurringOptions[0],
   );
-  const mutation = useMutation({
+  const addMutation = useMutation({
     mutationFn: addNewChore,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["chores"]);
+    },
+  });
+  const editMutation = useMutation({
+    mutationFn: ({ chore, id }) => editChore(chore, id),
     onSuccess: () => {
       queryClient.invalidateQueries(["chores"]);
     },
@@ -36,6 +42,7 @@ function CreateChoreForm({ editChore, onCloseModal }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+
     const newChore = {
       title: choreTitle,
       description: choreDesc,
@@ -44,8 +51,8 @@ function CreateChoreForm({ editChore, onCloseModal }) {
       priority: chorePrio,
       recurring: choreRecur,
     };
-
-    mutation.mutate(newChore);
+    if (!choreToEdit) addMutation.mutate(newChore);
+    else editMutation.mutate({ chore: newChore, id: choreToEdit._id });
 
     setChoreTitle("");
     setChoreDesc("");
@@ -104,6 +111,7 @@ function CreateChoreForm({ editChore, onCloseModal }) {
           <label htmlFor="dueDate">Finish Date:</label>
           <DatePicker
             selected={pickedDate}
+            id="dueDate"
             onChange={(date) => setPickedDate(date)}
             className="cursor-pointer rounded-md bg-gray-100 py-1 text-center"
           />

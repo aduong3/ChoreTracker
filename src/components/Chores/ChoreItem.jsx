@@ -70,7 +70,7 @@ function ChoreItem({ chore }) {
           </ClickMenu.Menu>
 
           <Modal.Window name="edit">
-            <CreateChoreForm editChore={chore} />
+            <CreateChoreForm choreToEdit={chore} />
           </Modal.Window>
           <Modal.Window name="delete">
             <ConfirmDelete id={choreId} />

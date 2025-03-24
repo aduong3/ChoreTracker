@@ -13,6 +13,15 @@ const choresSchema = new mongoose.Schema({
   dueDate: {
     type: Date,
     required: [true, "Please insert a due date for the chore!"],
+    validate: {
+      validator: function (val) {
+        const startOfToday = new Date();
+        const dueDate = new Date(val);
+        startOfToday.setUTCHours(0, 0, 0, 0);
+        return dueDate.getTime() >= startOfToday.getTime();
+      },
+      message: "Date should not be in the past.",
+    },
   },
   day: {
     type: String,

@@ -7,6 +7,6 @@ const controller = choresController();
 
 router.route("/").get(controller.getAllChores).post(controller.createChore);
 
-router.route("/:id").delete(controller.deleteChore);
+router.route("/:id").delete(controller.deleteChore).patch(controller.editChore);
 
 export default router;

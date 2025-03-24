@@ -14,7 +14,7 @@ export default function choresController() {
     } catch (err) {
       res.status(400).json({
         status: "fail",
-        message: "Could not get all chores",
+        message: err.message,
       });
     }
   }
@@ -32,7 +32,7 @@ export default function choresController() {
     } catch (err) {
       res.status(400).json({
         status: "fail",
-        message: "Failed to create chore",
+        message: err.message,
       });
     }
   }
@@ -58,5 +58,29 @@ export default function choresController() {
     }
   }
 
-  return { getAllChores, createChore, deleteChore };
+  async function editChore(req, res) {
+    try {
+      const chore = await Chores.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+      });
+      if (!chore) {
+        throw new Error("Unable to find and delete chore.");
+      }
+
+      res.status(200).json({
+        status: "success",
+        data: {
+          chore,
+        },
+      });
+    } catch (err) {
+      res.status(400).json({
+        status: "fail",
+        message: err.message,
+      });
+    }
+  }
+
+  return { getAllChores, createChore, deleteChore, editChore };
 }
