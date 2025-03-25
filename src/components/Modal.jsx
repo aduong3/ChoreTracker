@@ -33,7 +33,7 @@ function Window({ children, name }) {
     <div className="fixed top-0 left-0 z-1000 h-full w-full bg-black/40 backdrop-blur-xs">
       <div
         ref={ref}
-        className="absolute top-[50%] left-[50%] flex -translate-[50%] rounded-md bg-zinc-200 px-10 py-12"
+        className="absolute top-[50%] left-[50%] flex -translate-[50%] rounded-md bg-zinc-50 px-10 py-12"
       >
         <button
           onClick={close}

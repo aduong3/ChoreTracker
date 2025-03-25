@@ -81,7 +81,7 @@ function CreateChoreForm({ choreToEdit, onCloseModal }) {
           <input
             type="text"
             id="title"
-            className="flex-1 rounded-md bg-gray-100 px-2 py-1 focus:ring-1 focus:outline-none"
+            className="flex-1 rounded-md bg-gray-200 px-2 py-1 focus:ring-1 focus:outline-none"
             value={choreTitle}
             onChange={(e) => setChoreTitle(e.target.value)}
           />
@@ -94,7 +94,7 @@ function CreateChoreForm({ choreToEdit, onCloseModal }) {
             rows="4"
             cols="50"
             id="description"
-            className="flex-1 resize-none rounded-md bg-gray-100 px-2 py-1 focus:ring-1 focus:outline-none"
+            className="flex-1 resize-none rounded-md bg-gray-200 px-2 py-1 focus:ring-1 focus:outline-none"
             value={choreDesc}
             onChange={(e) => setChoreDesc(e.target.value)}
           />
@@ -108,7 +108,7 @@ function CreateChoreForm({ choreToEdit, onCloseModal }) {
             id="points"
             min={1}
             max={20}
-            className="flex-1 rounded-md bg-gray-100 px-2 py-1 focus:ring-1 focus:outline-none"
+            className="flex-1 rounded-md bg-gray-200 px-2 py-1 focus:ring-1 focus:outline-none"
             value={chorePoints}
             onChange={(e) => setChorePoints(e.target.value)}
           />
@@ -119,7 +119,7 @@ function CreateChoreForm({ choreToEdit, onCloseModal }) {
             selected={pickedDate}
             id="dueDate"
             onChange={(date) => setPickedDate(date)}
-            className="cursor-pointer rounded-md bg-gray-100 py-1 text-center"
+            className="cursor-pointer rounded-md bg-gray-200 py-1 text-center"
           />
         </div>
         <div className="flex items-center justify-center gap-2">
@@ -128,7 +128,7 @@ function CreateChoreForm({ choreToEdit, onCloseModal }) {
             value={choreStatus}
             id="status"
             onChange={(e) => setChoreStatus(e.target.value)}
-            className="cursor-pointer rounded-md bg-gray-100 py-1 text-center uppercase"
+            className="cursor-pointer rounded-md bg-gray-200 py-1 text-center uppercase"
           >
             {statusOptions.map((statusOption) => (
               <option value={statusOption} key={statusOption}>
@@ -142,7 +142,7 @@ function CreateChoreForm({ choreToEdit, onCloseModal }) {
             <label htmlFor="priority">Priority:</label>
             <select
               id="priority"
-              className="bg-gray-100 px-2 py-1 uppercase"
+              className="rounded-md bg-gray-200 px-2 py-1 uppercase"
               value={chorePrio}
               onChange={(e) => setChorePrio(e.target.value)}
             >
@@ -157,7 +157,7 @@ function CreateChoreForm({ choreToEdit, onCloseModal }) {
             <label htmlFor="recurring">Repeats:</label>
             <select
               id="recurring"
-              className="bg-gray-100 px-2 py-1 uppercase"
+              className="rounded-md bg-gray-200 px-2 py-1 uppercase"
               value={choreRecur}
               onChange={(e) => setChoreRecur(e.target.value)}
             >

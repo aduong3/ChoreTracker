@@ -21,7 +21,7 @@ function ChoreItem({ chore }) {
   );
   return (
     <li>
-      <div className="grid grid-cols-[10px_1fr_1fr_1fr_1fr_20px] items-center gap-2 border-b-1 border-gray-300 pb-3">
+      <div className="grid grid-cols-[10px_1fr_1fr_1fr_1fr_25px] items-center gap-2 border-b-1 border-gray-300 pb-3">
         <div
           className={`h-full w-full ${
             priority.toLowerCase() === "high"

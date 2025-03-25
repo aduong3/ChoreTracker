@@ -3,7 +3,7 @@ import ChoreItem from "./ChoreItem";
 function ChoresList({ chores }) {
   return (
     <div>
-      <ul className="mt-10 flex flex-col gap-3">
+      <ul className="no-scrollbar mt-6 flex h-[70vh] flex-col gap-2 overflow-auto">
         {chores.map((chore) => (
           <ChoreItem chore={chore} key={chore._id} />
         ))}
