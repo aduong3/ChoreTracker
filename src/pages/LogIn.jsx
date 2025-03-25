@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function LogIn() {
   const navigate = useNavigate();
@@ -31,13 +31,14 @@ function LogIn() {
         >
           Back
         </button>
-        <button
+        <Link
           type="submit"
           className="cursor-pointer rounded-md p-2 hover:bg-green-200"
-          onClick={() => navigate("/app")}
+          replace
+          to="/app"
         >
           Log In
-        </button>
+        </Link>
       </div>
     </form>
   );

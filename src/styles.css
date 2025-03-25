@@ -13,4 +13,13 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+  .thin-scrollbar::-webkit-scrollbar {
+    scrollbar-width: thin;
+  }
+  .thin-scrollbar::-webkit-scrollbar-track {
+    background: #e7e7e7;
+  }
+  .thin-scrollbar::-webkit-scrollbar-thumb {
+    background: #c4c4c4;
+  }
 }
