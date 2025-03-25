@@ -6,26 +6,32 @@ import {
 import Stat from "../Stat";
 import { IoHourglassOutline } from "react-icons/io5";
 
-function ChoreStatList() {
+function ChoreStatList({ amountOfChores, choresDone }) {
+  const remainingChores = amountOfChores - choresDone;
   return (
     <>
       <Stat
         icon={<MdOutlineFormatListBulleted />}
         title="Total Chores"
-        value={8}
+        value={amountOfChores}
         color="red"
       />
       <Stat
         icon={<IoHourglassOutline />}
         title="Remaining"
-        value={5}
+        value={remainingChores}
         color="green"
       />
-      <Stat icon={<MdOutlineDone />} title="Completed" value={3} color="blue" />
+      <Stat
+        icon={<MdOutlineDone />}
+        title="Completed"
+        value={choresDone}
+        color="blue"
+      />
       <Stat
         icon={<MdOutlinePercent />}
         title="Completed Rate"
-        value="37.5%"
+        value={`${((choresDone / amountOfChores) * 100).toFixed(2)}%`}
         color="purple"
       />
     </>

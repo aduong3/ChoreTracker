@@ -38,14 +38,16 @@ const choresSchema = new mongoose.Schema({
   status: {
     type: String,
     default: "pending",
+    enum: ["pending", "completed"],
   },
   priority: {
     type: String,
-    default: "LOW",
+    enum: ["low", "medium", "high"],
   },
   recurring: {
     type: String,
     required: [true, "Please enter when this chore will recur"],
+    enum: ["monthly", "weekly", "daily", "none"],
   },
 });
 

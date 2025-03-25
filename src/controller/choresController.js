@@ -7,6 +7,7 @@ export default function choresController() {
 
       res.status(200).json({
         status: "success",
+        results: chores.length,
         data: {
           chores,
         },

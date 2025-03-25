@@ -4,8 +4,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { addNewChore, editChore } from "../../services/apiChores";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const priorityOptions = ["LOW", "MEDIUM", "HIGH"];
-const recurringOptions = ["DAILY", "WEEKLY", "MONTHLY", "NONE"];
+const priorityOptions = ["low", "medium", "high"];
+const recurringOptions = ["daily", "weekly", "monthly", "none"];
+const statusOptions = ["pending", "completed"];
 
 function CreateChoreForm({ choreToEdit, onCloseModal }) {
   const queryClient = useQueryClient();
@@ -20,6 +21,9 @@ function CreateChoreForm({ choreToEdit, onCloseModal }) {
   );
   const [pickedDate, setPickedDate] = useState(
     choreToEdit ? choreToEdit.dueDate : new Date(),
+  );
+  const [choreStatus, setChoreStatus] = useState(
+    choreToEdit ? choreToEdit.status : statusOptions[0],
   );
   const [chorePrio, setChorePrio] = useState(
     choreToEdit ? choreToEdit.priority : priorityOptions[0],
@@ -50,6 +54,7 @@ function CreateChoreForm({ choreToEdit, onCloseModal }) {
       dueDate: pickedDate,
       priority: chorePrio,
       recurring: choreRecur,
+      status: choreStatus,
     };
     if (!choreToEdit) addMutation.mutate(newChore);
     else editMutation.mutate({ chore: newChore, id: choreToEdit._id });
@@ -60,6 +65,7 @@ function CreateChoreForm({ choreToEdit, onCloseModal }) {
     setPickedDate(new Date());
     setChorePrio(priorityOptions[0]);
     setChoreRecur(recurringOptions[0]);
+    setChoreStatus(statusOptions[0]);
 
     onCloseModal();
   }
@@ -116,12 +122,27 @@ function CreateChoreForm({ choreToEdit, onCloseModal }) {
             className="cursor-pointer rounded-md bg-gray-100 py-1 text-center"
           />
         </div>
+        <div className="flex items-center justify-center gap-2">
+          <label htmlFor="status">Status:</label>
+          <select
+            value={choreStatus}
+            id="status"
+            onChange={(e) => setChoreStatus(e.target.value)}
+            className="cursor-pointer rounded-md bg-gray-100 py-1 text-center uppercase"
+          >
+            {statusOptions.map((statusOption) => (
+              <option value={statusOption} key={statusOption}>
+                {statusOption}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="flex justify-around">
           <div className="flex items-center gap-3">
             <label htmlFor="priority">Priority:</label>
             <select
               id="priority"
-              className="bg-gray-100 px-2 py-1"
+              className="bg-gray-100 px-2 py-1 uppercase"
               value={chorePrio}
               onChange={(e) => setChorePrio(e.target.value)}
             >
@@ -136,7 +157,7 @@ function CreateChoreForm({ choreToEdit, onCloseModal }) {
             <label htmlFor="recurring">Repeats:</label>
             <select
               id="recurring"
-              className="bg-gray-100 px-2 py-1"
+              className="bg-gray-100 px-2 py-1 uppercase"
               value={choreRecur}
               onChange={(e) => setChoreRecur(e.target.value)}
             >
