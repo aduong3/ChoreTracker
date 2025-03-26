@@ -161,11 +161,31 @@ export default function usersController() {
     }
   }
 
+  async function addPointsToUser(req, res, next) {
+    try {
+      const user = await Users.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+      });
+
+      if (!user) throw new Error("Cannot find and update this user.");
+
+      res.status(200).json({
+        status: "success",
+        data: {
+          points: user.points,
+        },
+      });
+    } catch (err) {
+      return next(new ErrorHandler(err.message, 400));
+    }
+  }
+
   return {
     createNewUser,
     logUserIn,
     logUserOut,
     protectRoute,
     checkAuthStatus,
+    addPointsToUser,
   };
 }

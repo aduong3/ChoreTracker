@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema({
     default: "user",
     enum: ["user", "admin"],
   },
+  points: {
+    type: Number,
+    default: 0,
+  },
   passwordChangedAt: Date,
 });
 
