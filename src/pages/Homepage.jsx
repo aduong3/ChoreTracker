@@ -1,9 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../components/Logo";
+import { checkAuth } from "../services/apiUsers";
 
 function Homepage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(
+    () =>
+      async function () {
+        const data = await checkAuth();
+        console.log(data.isAuthenticated);
+        if (data.isAuthenticated) {
+          setIsLoggedIn(true);
+        }
+      },
+    [],
+  );
 
   return (
     <div className="flex min-h-svh max-w-full flex-col items-center justify-center gap-16 bg-neutral-50 px-3 text-center">

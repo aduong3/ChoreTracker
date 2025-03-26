@@ -75,6 +75,21 @@ export default function usersController() {
     }
   }
 
+  async function logUserOut(req, res) {
+    try {
+      res.clearCookie("jwt", { path: "/", sameSite: "None", secure: true });
+      res.status(200).json({
+        status: "success",
+        message: "User is now logged out.",
+      });
+    } catch (err) {
+      res.status(400).json({
+        status: "fail",
+        message: "User failed to log out.",
+      });
+    }
+  }
+
   async function protectRoute(req, res, next) {
     try {
       let token;
@@ -116,10 +131,9 @@ export default function usersController() {
     }
   }
 
-  function checkAuthStatus(req, res, next) {
+  function checkAuthStatus(req, res) {
     try {
       const token = req.cookies.jwt;
-
       if (!token) {
         return res.status(401).json({
           status: "fail",
@@ -147,5 +161,11 @@ export default function usersController() {
     }
   }
 
-  return { createNewUser, logUserIn, protectRoute, checkAuthStatus };
+  return {
+    createNewUser,
+    logUserIn,
+    logUserOut,
+    protectRoute,
+    checkAuthStatus,
+  };
 }

@@ -9,5 +9,6 @@ router.route("/auth-status").get(controller.checkAuthStatus);
 
 router.route("/signup").post(controller.createNewUser);
 router.route("/login").post(controller.logUserIn);
+router.route("/logout").post(controller.logUserOut);
 
 export default router;

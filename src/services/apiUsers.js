@@ -40,3 +40,31 @@ export async function logIn(userInfo) {
     return new ErrorHandler(err.message, 400);
   }
 }
+
+export async function checkAuth() {
+  try {
+    const res = await fetch(`${BASE_URL}/v1/users/auth-status`, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (!res.ok) throw new Error("No authorization! Log in!");
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    return new ErrorHandler(err.message, 400);
+  }
+}
+
+export async function logout() {
+  try {
+    const res = await fetch(`${BASE_URL}/v1/users/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+    if (!res.ok) throw new Error("Could not log out.");
+    return;
+  } catch (err) {
+    return new ErrorHandler(err.message, 400);
+  }
+}

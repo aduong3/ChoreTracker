@@ -1,7 +1,7 @@
 import { IoSunnyOutline } from "react-icons/io5";
 
 import Logo from "./Logo";
-import { CiLogout } from "react-icons/ci";
+import Logout from "./Logout";
 
 function Header() {
   return (
@@ -14,9 +14,7 @@ function Header() {
         <span className="cursor-pointer rounded-md p-2 text-xl hover:bg-zinc-200">
           <IoSunnyOutline />
         </span>
-        <span className="cursor-pointer rounded-md p-2 text-xl hover:bg-zinc-200">
-          <CiLogout />
-        </span>
+        <Logout />
       </div>
     </header>
   );
