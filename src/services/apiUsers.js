@@ -32,6 +32,7 @@ export async function logIn(userInfo) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userInfo),
+      credentials: "include",
     });
 
     if (!res.ok) throw new Error("Email or password is incorrect");

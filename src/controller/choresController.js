@@ -3,7 +3,7 @@ import Chores from "./../models/choresModel.js";
 export default function choresController() {
   async function getAllChores(req, res) {
     try {
-      const chores = await Chores.find();
+      const chores = await Chores.find({ user: req.user._id });
 
       res.status(200).json({
         status: "success",

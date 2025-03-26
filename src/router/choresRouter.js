@@ -9,7 +9,7 @@ const userController = usersController();
 
 router
   .route("/")
-  .get(controller.getAllChores)
+  .get(userController.protectRoute, controller.getAllChores)
   .post(userController.protectRoute, controller.createChore);
 
 router.route("/:id").delete(controller.deleteChore).patch(controller.editChore);

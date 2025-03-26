@@ -14,6 +14,7 @@ function Chores() {
     queryKey: ["chores"],
     queryFn: fetchAllChores,
   });
+  console.log(apichores);
   if (isPending) return <h2>Loading...</h2>;
   const chores = apichores?.data?.chores;
   const amountOfChores = apichores.results;

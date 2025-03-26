@@ -57,6 +57,7 @@ const choresSchema = new mongoose.Schema(
     },
   },
   {
+    strictQuery: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   },

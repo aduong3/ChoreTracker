@@ -2,7 +2,13 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export async function fetchAllChores() {
   try {
-    const res = await fetch(`${BASE_URL}/v1/chores`);
+    const res = await fetch(`${BASE_URL}/v1/chores`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
 
     if (!res.ok) {
       throw new Error("Could not fetch all chores!");
@@ -22,6 +28,7 @@ export async function addNewChore(newChore) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newChore),
+      credentials: "include",
     });
 
     if (!res.ok) {
