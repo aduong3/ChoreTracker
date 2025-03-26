@@ -5,6 +5,8 @@ const router = express.Router();
 
 const controller = usersController();
 
+router.route("/auth-status").get(controller.checkAuthStatus);
+
 router.route("/signup").post(controller.createNewUser);
 router.route("/login").post(controller.logUserIn);
 

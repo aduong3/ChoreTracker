@@ -23,3 +23,19 @@ export async function signUp(newUser) {
     return new ErrorHandler(err.message, 400);
   }
 }
+
+export async function logIn(userInfo) {
+  try {
+    const res = await fetch(`${BASE_URL}/v1/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userInfo),
+    });
+
+    if (!res.ok) throw new Error("Email or password is incorrect");
+  } catch (err) {
+    return new ErrorHandler(err.message, 400);
+  }
+}

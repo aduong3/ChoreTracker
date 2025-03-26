@@ -2,6 +2,7 @@ import express from "express";
 import choresRouter from "./src/router/choresRouter.js";
 import usersRouter from "./src/router/usersRouter.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(cors());
 // app.options("*", cors());
 
 app.use(express.json());
+app.use(cookieParser());
 
 // SET ROUTES HERE
 app.use("/api/v1/chores", choresRouter);

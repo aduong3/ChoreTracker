@@ -22,7 +22,7 @@ export default function choresController() {
 
   async function createChore(req, res) {
     try {
-      const chore = await Chores.create(req.body);
+      const chore = await Chores.create({ ...req.body, user: req.user._id });
 
       res.status(201).json({
         status: "success",
