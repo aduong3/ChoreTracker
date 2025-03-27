@@ -49,7 +49,11 @@ const choresSchema = new mongoose.Schema(
       ref: "Users",
       required: [true, "Chore must belong to a user."],
     },
-    completedAt: Date,
+    completedAt: {
+      type: Date,
+      default: null,
+      index: { expireAfterSeconds: 604800 },
+    },
   },
   {
     strictQuery: true,

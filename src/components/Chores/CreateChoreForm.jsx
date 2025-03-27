@@ -61,7 +61,7 @@ function CreateChoreForm({ choreToEdit, onCloseModal }) {
 
   return (
     <div className="flex flex-col gap-10">
-      <h2 className="self-center text-3xl">Create New Chore</h2>
+      <h2 className="self-center text-2xl">Create New Chore</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <div className="flex items-center gap-2">
           <label htmlFor="title" className="w-26 text-left">

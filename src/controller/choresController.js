@@ -15,7 +15,7 @@ export default function choresController() {
           { status: "pending", dueDate: { $gte: startOfDay } },
           { status: "completed", completedAt: { $lte: endOfDay } },
         ],
-      });
+      }).sort({ status: -1, dueDate: 1 });
 
       res.status(200).json({
         status: "success",
