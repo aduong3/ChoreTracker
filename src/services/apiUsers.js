@@ -68,3 +68,21 @@ export async function logout() {
     return new ErrorHandler(err.message, 400);
   }
 }
+
+export async function addPoints(addPoints) {
+  try {
+    const res = await fetch(`${BASE_URL}/v1/users/points`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ points: addPoints }),
+      credentials: "include",
+    });
+    if (!res.ok) {
+      throw new Error("Could not add points to the user.");
+    }
+  } catch (err) {
+    return new ErrorHandler(err.message, 400);
+  }
+}

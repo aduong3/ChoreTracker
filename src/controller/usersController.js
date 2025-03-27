@@ -163,9 +163,13 @@ export default function usersController() {
 
   async function addPointsToUser(req, res, next) {
     try {
-      const user = await Users.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-      });
+      const user = await Users.findByIdAndUpdate(
+        req.user.id,
+        { $inc: { points: req.body.points } },
+        {
+          new: true,
+        },
+      );
 
       if (!user) throw new Error("Cannot find and update this user.");
 

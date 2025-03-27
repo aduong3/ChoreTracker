@@ -7,20 +7,30 @@ import CreateChoreForm from "./CreateChoreForm";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { completeChore } from "../../services/apiChores";
+import { addPoints } from "../../services/apiUsers";
 
 function ChoreItem({ chore }) {
   const queryClient = useQueryClient();
-  const mutation = useMutation({
+  const addPointsMutation = useMutation({
+    mutationFn: addPoints,
+  });
+  const completeMutation = useMutation({
     mutationFn: completeChore,
     onSuccess: () => {
       queryClient.invalidateQueries(["chores"]);
     },
   });
-  const { title, dueDate, status, priority, _id: choreId } = chore;
+  const { title, dueDate, status, priority, _id: choreId, points } = chore;
   const daysLeft = Math.ceil(
     (new Date(dueDate).getTime() - new Date().getTime()) /
       (1000 * 60 * 60 * 24),
   );
+
+  function handleCompleteChore() {
+    completeMutation.mutate(choreId);
+    addPointsMutation.mutate(points);
+  }
+
   return (
     <li>
       <div className="grid grid-cols-[10px_1fr_1fr_1fr_1fr_25px] items-center gap-2 border-b-1 border-gray-300 pb-3">
@@ -49,7 +59,7 @@ function ChoreItem({ chore }) {
             <ClickMenu.List id={choreId}>
               {chore.status === "pending" && (
                 <ClickMenu.Button
-                  onClick={() => mutation.mutate(choreId)}
+                  onClick={handleCompleteChore}
                   icon={<IoIosCheckmarkCircle />}
                 >
                   Complete
