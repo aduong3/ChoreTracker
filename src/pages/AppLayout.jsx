@@ -7,7 +7,7 @@ function AppLayout() {
     <div className="font-roboto grid h-screen grid-cols-[200px_1fr] grid-rows-[auto_1fr]">
       <Header />
       <Sidebar />
-      <main className="bg-neutral-5">
+      <main className="bg-neutral-100">
         <div className="mx-auto max-w-[70rem]">
           <Outlet />
         </div>

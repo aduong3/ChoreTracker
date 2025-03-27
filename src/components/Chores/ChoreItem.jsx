@@ -4,17 +4,19 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import Modal from "../Modal";
 import ConfirmDelete from "../ConfirmDelete";
 import CreateChoreForm from "./CreateChoreForm";
+import { IoIosCheckmarkCircle } from "react-icons/io";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { completeChore } from "../../services/apiChores";
 
 function ChoreItem({ chore }) {
-  const {
-    title,
-    day,
-    dueDate,
-    status,
-    priority,
-    recurring,
-    _id: choreId,
-  } = chore;
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: completeChore,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["chores"]);
+    },
+  });
+  const { title, dueDate, status, priority, _id: choreId } = chore;
   const daysLeft = Math.ceil(
     (new Date(dueDate).getTime() - new Date().getTime()) /
       (1000 * 60 * 60 * 24),
@@ -45,24 +47,23 @@ function ChoreItem({ chore }) {
           <ClickMenu.Menu>
             <ClickMenu.Toggle id={choreId} />
             <ClickMenu.List id={choreId}>
-              <Modal.Open opens="edit">
+              {chore.status === "pending" && (
                 <ClickMenu.Button
-                  onClick={() => {
-                    console.log("edit");
-                  }}
-                  icon={<MdModeEditOutline />}
+                  onClick={() => mutation.mutate(choreId)}
+                  icon={<IoIosCheckmarkCircle />}
                 >
+                  Complete
+                </ClickMenu.Button>
+              )}
+
+              <Modal.Open opens="edit">
+                <ClickMenu.Button icon={<MdModeEditOutline />}>
                   Edit
                 </ClickMenu.Button>
               </Modal.Open>
 
               <Modal.Open opens="delete">
-                <ClickMenu.Button
-                  onClick={() => {
-                    console.log("delete");
-                  }}
-                  icon={<RiDeleteBinFill />}
-                >
+                <ClickMenu.Button icon={<RiDeleteBinFill />}>
                   Delete
                 </ClickMenu.Button>
               </Modal.Open>

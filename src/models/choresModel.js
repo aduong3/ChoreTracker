@@ -5,7 +5,6 @@ const choresSchema = new mongoose.Schema(
     title: {
       type: String,
       required: [true, "Please insert a title for your chore!"],
-      maxlength: [30, "Max amount of characters for the title is 30."],
     },
     description: {
       type: String,
@@ -45,16 +44,12 @@ const choresSchema = new mongoose.Schema(
       type: String,
       enum: ["low", "medium", "high"],
     },
-    recurring: {
-      type: String,
-      required: [true, "Please enter when this chore will recur"],
-      enum: ["monthly", "weekly", "daily", "none"],
-    },
     user: {
       type: mongoose.Schema.ObjectId,
       ref: "Users",
       required: [true, "Chore must belong to a user."],
     },
+    completedAt: Date,
   },
   {
     strictQuery: true,

@@ -64,6 +64,7 @@ function SignUp() {
           className="rounded-md bg-neutral-100 p-1 focus:ring-1 focus:outline-none"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          autoComplete="username"
         />
       </div>
       <div className="grid grid-cols-[150px_1fr]">
@@ -74,6 +75,7 @@ function SignUp() {
           className="rounded-md bg-neutral-100 p-1 focus:ring-1 focus:outline-none"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          autoComplete="new-password"
         />
       </div>
       <div className="grid grid-cols-[150px_1fr]">
@@ -84,6 +86,7 @@ function SignUp() {
           className="rounded-md bg-neutral-100 p-1 focus:ring-1 focus:outline-none"
           value={passwordConfirm}
           onChange={(e) => setPasswordConfirm(e.target.value)}
+          autoComplete="new-password"
         />
       </div>
       <div className="flex gap-24">

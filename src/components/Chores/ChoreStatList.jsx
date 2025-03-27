@@ -8,6 +8,7 @@ import { IoHourglassOutline } from "react-icons/io5";
 
 function ChoreStatList({ amountOfChores, choresDone }) {
   const remainingChores = amountOfChores - choresDone;
+  const completedRate = Math.round((choresDone / amountOfChores) * 100);
   return (
     <>
       <Stat
@@ -31,7 +32,7 @@ function ChoreStatList({ amountOfChores, choresDone }) {
       <Stat
         icon={<MdOutlinePercent />}
         title="Completed Rate"
-        value={`${((choresDone / amountOfChores) * 100).toFixed(2)}%`}
+        value={`${isNaN(completedRate) ? 0 : completedRate}%`}
         color="purple"
       />
     </>

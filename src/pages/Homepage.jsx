@@ -10,7 +10,7 @@ function Homepage() {
     () =>
       async function () {
         const data = await checkAuth();
-        console.log(data.isAuthenticated);
+        // console.log(data.isAuthenticated);
         if (data.isAuthenticated) {
           setIsLoggedIn(true);
         }

@@ -46,6 +46,7 @@ export async function deleteChore(id) {
   try {
     const res = await fetch(`${BASE_URL}/v1/chores/${id}`, {
       method: "DELETE",
+      credentials: "include",
     });
 
     if (!res.ok) {
@@ -67,6 +68,7 @@ export async function editChore(chore, id) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(chore),
+      credentials: "include",
     });
 
     if (!res.ok) {
@@ -75,6 +77,25 @@ export async function editChore(chore, id) {
     const data = await res.json();
 
     return data;
+  } catch (err) {
+    console.log(err.message);
+  }
+}
+
+export async function completeChore(id) {
+  try {
+    const bodyDetail = { completedAt: new Date(), status: "completed" };
+    const res = await fetch(`${BASE_URL}/v1/chores/${id}/completed`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bodyDetail),
+      credentials: "include",
+    });
+    if (!res.ok) throw new Error("Could not complete this chore.");
+
+    return;
   } catch (err) {
     console.log(err.message);
   }
