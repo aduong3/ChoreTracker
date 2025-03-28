@@ -5,6 +5,7 @@ import Chores from "./pages/Chores";
 import Shop from "./pages/Shop";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
+import PurchaseHistory from "./pages/PurchaseHistory";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route index element={<Chores />} />
           <Route path="chores" element={<Chores />} />
           <Route path="shop" element={<Shop />} />
+          <Route path="purchase-history" element={<PurchaseHistory />} />
         </Route>
       </Routes>
     </BrowserRouter>

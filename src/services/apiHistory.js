@@ -28,3 +28,21 @@ export async function addToHistory(item) {
     console.log(err.message);
   }
 }
+
+export async function getAllHistory() {
+  try {
+    const res = await fetch(`${BASE_URL}/v1/history`, {
+      method: "GET",
+      credentials: "include",
+    });
+    if (!res.ok) {
+      const data = await res.json();
+      throw new Error(data.message || "Cannot get purchase history.");
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log(err.message);
+  }
+}

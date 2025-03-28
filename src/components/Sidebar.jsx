@@ -10,6 +10,9 @@ function Sidebar() {
         <Link to="/app/shop" className="py-1 hover:bg-neutral-300">
           Shop
         </Link>
+        <Link to="/app/purchase-history" className="py-1 hover:bg-neutral-300">
+          Purchase History
+        </Link>
       </nav>
     </div>
   );
