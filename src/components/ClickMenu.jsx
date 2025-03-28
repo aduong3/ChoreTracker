@@ -24,7 +24,7 @@ function Menu({ children }) {
   return <div className="flex">{children}</div>;
 }
 
-function Toggle({ id }) {
+function Toggle({ id, hoverColor }) {
   const { openId, close, open, setPosition } = useContext(ClickMenuContext);
 
   function handleClick(e) {
@@ -40,7 +40,7 @@ function Toggle({ id }) {
   return (
     <button
       onClick={handleClick}
-      className="cursor-pointer rounded-md px-1 py-2 hover:bg-zinc-300"
+      className={`${hoverColor ? hoverColor : ""} cursor-pointer rounded-md px-1 py-2`}
     >
       <HiOutlineDotsVertical />
     </button>
@@ -73,7 +73,7 @@ function Button({ children, onClick, icon }) {
   return (
     <button
       onClick={handleClick}
-      className="flex cursor-pointer items-center gap-4 px-4 py-3 hover:bg-zinc-300"
+      className="flex cursor-pointer items-center gap-4 px-3 py-2 hover:bg-zinc-300"
     >
       {icon}
       <span>{children}</span>

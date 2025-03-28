@@ -40,3 +40,18 @@ export async function createNewShopItem(newShopItem) {
     console.log(err.message);
   }
 }
+
+export async function deleteShopItem(id) {
+  try {
+    const res = await fetch(`${BASE_URL}/v1/shops/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    if (!res.ok) {
+      const data = await res.json();
+      throw new Error(data.message || "Could not delete shop item!");
+    }
+  } catch (err) {
+    console.log(err.message);
+  }
+}

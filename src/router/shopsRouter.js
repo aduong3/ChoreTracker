@@ -13,4 +13,6 @@ router
   .get(controller.getAllShopItems)
   .post(controller.createShopItem);
 
+router.route("/:id").delete(controller.deleteShopItem);
+
 export default router;

@@ -1,18 +1,26 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteChore } from "../services/apiChores";
+import { deleteShopItem } from "../services/apiShops";
 
-function ConfirmDelete({ onCloseModal, id }) {
+function ConfirmDelete({ onCloseModal, id, type }) {
   const queryClient = useQueryClient();
-  const mutation = useMutation({
+  const choreMutation = useMutation({
     mutationFn: deleteChore,
     onSuccess: () => {
       queryClient.invalidateQueries(["chores"]);
     },
   });
+  const shopMutation = useMutation({
+    mutationFn: deleteShopItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["shopItems"]);
+    },
+  });
 
   function handleDeleteChore(e) {
     e.preventDefault();
-    mutation.mutate(id);
+    if (type === "chore") choreMutation.mutate(id);
+    else if (type === "shop") shopMutation.mutate(id);
     onCloseModal();
   }
 

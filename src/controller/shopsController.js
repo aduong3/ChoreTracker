@@ -13,6 +13,7 @@ export default function shopsController() {
         },
       });
     } catch (err) {
+      g;
       res.status(400).json({
         status: "fail",
         message: err.message,
@@ -37,5 +38,20 @@ export default function shopsController() {
     }
   }
 
-  return { getAllShopItems, createShopItem };
+  async function deleteShopItem(req, res) {
+    try {
+      await Shops.findByIdAndDelete(req.params.id);
+
+      res.status(204).json({
+        status: "success",
+      });
+    } catch (err) {
+      res.status(400).json({
+        status: "fail",
+        message: err.message,
+      });
+    }
+  }
+
+  return { getAllShopItems, createShopItem, deleteShopItem };
 }

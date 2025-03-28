@@ -52,7 +52,7 @@ const choresSchema = new mongoose.Schema(
     completedAt: {
       type: Date,
       default: null,
-      index: { expireAfterSeconds: 604800 },
+      index: { expireAfterSeconds: 172800 },
     },
   },
   {

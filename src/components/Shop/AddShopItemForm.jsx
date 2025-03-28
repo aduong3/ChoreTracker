@@ -4,10 +4,15 @@ import Select from "react-select";
 import { createNewShopItem } from "../../services/apiShops";
 import { useState } from "react";
 
-function AddShopItemForm() {
-  const [shopTitle, setShopTitle] = useState("");
-  const [shopPrice, setShopPrice] = useState(200);
-  const [shopIcon, setShopIcon] = useState("");
+function AddShopItemForm({ itemToEdit, onCloseModal }) {
+  let editIconOption;
+  if (itemToEdit) {
+    console.log(itemToEdit);
+    editIconOption = options.find((option) => option.value === itemToEdit.icon);
+  }
+  const [shopTitle, setShopTitle] = useState(itemToEdit?.title ?? "");
+  const [shopPrice, setShopPrice] = useState(itemToEdit?.price ?? 200);
+  const [shopIcon, setShopIcon] = useState(editIconOption ?? "");
 
   const queryClient = useQueryClient();
   const mutation = useMutation({
@@ -33,6 +38,8 @@ function AddShopItemForm() {
     setShopTitle("");
     setShopPrice(200);
     setShopIcon("");
+
+    onCloseModal();
   }
 
   return (

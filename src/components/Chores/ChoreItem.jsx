@@ -59,7 +59,7 @@ function ChoreItem({ chore }) {
         </p>
         <Modal>
           <ClickMenu.Menu>
-            <ClickMenu.Toggle id={choreId} />
+            <ClickMenu.Toggle id={choreId} hoverColor="hover:bg-zinc-300" />
             <ClickMenu.List id={choreId}>
               {chore.status === "pending" && (
                 <ClickMenu.Button
@@ -88,7 +88,7 @@ function ChoreItem({ chore }) {
             <CreateChoreForm choreToEdit={chore} />
           </Modal.Window>
           <Modal.Window name="delete">
-            <ConfirmDelete id={choreId} />
+            <ConfirmDelete id={choreId} type="chore" />
           </Modal.Window>
         </Modal>
       </div>

@@ -97,10 +97,14 @@ export default function choresController() {
 
   async function completeChore(req, res) {
     try {
-      const chore = await Chores.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: false,
-      });
+      const chore = await Chores.findByIdAndUpdate(
+        req.params.id,
+        { ...req.body, completedAt: new Date() },
+        {
+          new: true,
+          runValidators: false,
+        },
+      );
       if (!chore)
         throw new Error("This chore does not exist and cannot be completed");
       res.status(200).json({
