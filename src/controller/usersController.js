@@ -163,15 +163,20 @@ export default function usersController() {
 
   async function addPointsToUser(req, res, next) {
     try {
-      const user = await Users.findByIdAndUpdate(
-        req.user.id,
-        { $inc: { points: req.body.points } },
-        {
-          new: true,
-        },
-      );
+      // const user = await Users.findByIdAndUpdate(
+      //   req.user.id,
+      //   { $inc: { points: req.body.points } },
+      //   {
+      //     new: true,
+      //   },
+      // );
+      const user = await Users.findById(req.user.id);
 
       if (!user) throw new Error("Cannot find and update this user.");
+      const newPoints = req.body.points + user.points;
+      if (newPoints < 0) throw new Error("Not enough points!");
+      user.points = newPoints;
+      await user.save({ validateBeforeSave: false });
 
       res.status(200).json({
         status: "success",

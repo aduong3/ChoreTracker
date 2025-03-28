@@ -21,7 +21,7 @@ function ShopList() {
   const rewardItems = apiShop?.data?.shops;
 
   return (
-    <div className="grid auto-rows-[200px] grid-cols-5 gap-6 py-5">
+    <div className="grid auto-rows-[230px] grid-cols-4 gap-6 py-5">
       {rewardItems.map((shopItem) => (
         <ShopItem item={shopItem} key={shopItem.id} />
       ))}
