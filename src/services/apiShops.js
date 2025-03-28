@@ -55,3 +55,24 @@ export async function deleteShopItem(id) {
     console.log(err.message);
   }
 }
+
+export async function editShopItem(item, id) {
+  try {
+    const res = await fetch(`${BASE_URL}/v1/shops/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(item),
+      credentials: "include",
+    });
+    if (!res.ok) {
+      const data = await res.json();
+      throw new Error(data.message || "Could not edit shop item!");
+    }
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log(err.message);
+  }
+}

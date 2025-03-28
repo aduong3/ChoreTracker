@@ -1,13 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { options } from "../../services/shopIcons";
 import Select from "react-select";
-import { createNewShopItem } from "../../services/apiShops";
+import { createNewShopItem, editShopItem } from "../../services/apiShops";
 import { useState } from "react";
 
 function AddShopItemForm({ itemToEdit, onCloseModal }) {
   let editIconOption;
   if (itemToEdit) {
-    console.log(itemToEdit);
     editIconOption = options.find((option) => option.value === itemToEdit.icon);
   }
   const [shopTitle, setShopTitle] = useState(itemToEdit?.title ?? "");
@@ -15,8 +14,14 @@ function AddShopItemForm({ itemToEdit, onCloseModal }) {
   const [shopIcon, setShopIcon] = useState(editIconOption ?? "");
 
   const queryClient = useQueryClient();
-  const mutation = useMutation({
+  const createMutation = useMutation({
     mutationFn: createNewShopItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["shopItems"]);
+    },
+  });
+  const editMutation = useMutation({
+    mutationFn: ({ item, id }) => editShopItem(item, id),
     onSuccess: () => {
       queryClient.invalidateQueries(["shopItems"]);
     },
@@ -32,8 +37,9 @@ function AddShopItemForm({ itemToEdit, onCloseModal }) {
       price: shopPrice,
       icon: iconData,
     };
-
-    mutation.mutate(newShopItem);
+    if (itemToEdit)
+      editMutation.mutate({ item: newShopItem, id: itemToEdit.id });
+    else createMutation.mutate(newShopItem);
 
     setShopTitle("");
     setShopPrice(200);

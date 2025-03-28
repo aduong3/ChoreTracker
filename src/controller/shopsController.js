@@ -53,5 +53,26 @@ export default function shopsController() {
     }
   }
 
-  return { getAllShopItems, createShopItem, deleteShopItem };
+  async function editShopItem(req, res) {
+    try {
+      const shop = await Shops.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+      });
+
+      res.status(200).json({
+        status: "success",
+        data: {
+          shop,
+        },
+      });
+    } catch (err) {
+      res.status(400).json({
+        status: "fail",
+        message: err.message,
+      });
+    }
+  }
+
+  return { getAllShopItems, createShopItem, deleteShopItem, editShopItem };
 }
