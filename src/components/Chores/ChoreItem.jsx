@@ -15,6 +15,9 @@ function ChoreItem({ chore }) {
   const queryClient = useQueryClient();
   const addPointsMutation = useMutation({
     mutationFn: addPoints,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["userPoints"]);
+    },
   });
   const completeMutation = useMutation({
     mutationFn: completeChore,

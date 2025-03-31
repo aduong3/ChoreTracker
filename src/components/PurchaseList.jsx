@@ -14,11 +14,10 @@ function PurchaseList() {
       </div>
     );
   }
-  console.log(data.data.history);
   const historyItems = data?.data?.history;
   return (
-    <div>
-      <ul>
+    <div className="flex justify-center py-5">
+      <ul className="flex flex-col">
         {historyItems.map((item) => (
           <PurchaseItem item={item} key={item._id} />
         ))}

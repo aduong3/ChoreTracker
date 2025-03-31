@@ -13,5 +13,6 @@ router.route("/logout").post(controller.logUserOut);
 
 router
   .route("/points")
-  .patch(controller.protectRoute, controller.addPointsToUser);
+  .patch(controller.protectRoute, controller.addPointsToUser)
+  .get(controller.protectRoute, controller.getUserPoints);
 export default router;

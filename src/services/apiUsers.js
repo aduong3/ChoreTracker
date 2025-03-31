@@ -86,3 +86,19 @@ export async function addPoints(addPoints) {
     return new ErrorHandler(err.message, 400);
   }
 }
+
+export async function getPoints() {
+  try {
+    const res = await fetch(`${BASE_URL}/v1/users/points`, {
+      method: "GET",
+      credentials: "include",
+    });
+    if (!res.ok) {
+      throw new Error("Could not retrieve the user's points.");
+    }
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    return new ErrorHandler(err.message, 400);
+  }
+}

@@ -3,7 +3,9 @@ import History from "../models/purchaseHistoryModel.js";
 export default function purchaseHistoryController() {
   async function getAllHistory(req, res) {
     try {
-      const history = await History.find({ user: req.user._id });
+      const history = await History.find({ user: req.user._id }).sort({
+        purchasedAt: -1,
+      });
 
       res.status(200).json({
         status: "success",

@@ -5,13 +5,17 @@ import Modal from "../Modal";
 import AddShopItemForm from "./AddShopItemForm";
 import ConfirmDelete from "../ConfirmDelete";
 import { RiDeleteBinFill } from "react-icons/ri";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addPoints } from "../../services/apiUsers";
 import { addToHistory } from "../../services/apiHistory";
 
 function ShopItem({ item }) {
+  const queryClient = useQueryClient();
   const addPointsMutation = useMutation({
     mutationFn: addPoints,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["userPoints"]);
+    },
   });
   const addToHistoryMutation = useMutation({
     mutationFn: addToHistory,

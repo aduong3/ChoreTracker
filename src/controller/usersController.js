@@ -189,6 +189,21 @@ export default function usersController() {
     }
   }
 
+  async function getUserPoints(req, res, next) {
+    try {
+      const user = await Users.findById(req.user.id);
+      if (!user) throw new Error("Cannot retrieve user's points.");
+      res.status(200).json({
+        status: "success",
+        data: {
+          points: user.points,
+        },
+      });
+    } catch (err) {
+      return next(new ErrorHandler(err.message, 400));
+    }
+  }
+
   return {
     createNewUser,
     logUserIn,
@@ -196,5 +211,6 @@ export default function usersController() {
     protectRoute,
     checkAuthStatus,
     addPointsToUser,
+    getUserPoints,
   };
 }
