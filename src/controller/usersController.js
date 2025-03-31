@@ -196,6 +196,7 @@ export default function usersController() {
       res.status(200).json({
         status: "success",
         data: {
+          name: user.name,
           points: user.points,
         },
       });

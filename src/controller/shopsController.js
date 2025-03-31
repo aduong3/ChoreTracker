@@ -3,7 +3,7 @@ import Shops from "../models/shopsModel.js";
 export default function shopsController() {
   async function getAllShopItems(req, res) {
     try {
-      const shops = await Shops.find({ user: req.user._id });
+      const shops = await Shops.find({ user: req.user._id }).sort({ price: 1 });
 
       res.status(200).json({
         status: "success",
@@ -13,7 +13,6 @@ export default function shopsController() {
         },
       });
     } catch (err) {
-      g;
       res.status(400).json({
         status: "fail",
         message: err.message,
