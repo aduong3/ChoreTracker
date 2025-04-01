@@ -22,6 +22,7 @@ const choresSchema = new mongoose.Schema(
         },
         message: "Date should not be in the past.",
       },
+      index: { expireAfterSeconds: 172800 },
     },
     day: {
       type: String,
@@ -52,7 +53,6 @@ const choresSchema = new mongoose.Schema(
     completedAt: {
       type: Date,
       default: null,
-      index: { expireAfterSeconds: 172800 },
     },
   },
   {
