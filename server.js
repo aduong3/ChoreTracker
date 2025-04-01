@@ -4,9 +4,27 @@ import dotenv from "dotenv";
 dotenv.config({ path: "./.env" });
 import app from "./app.js";
 
-const DB = process.env.DATABASE.replace("<username>", process.env.DATABASE_USER)
-  .replace("<password>", process.env.DATABASE_PWD)
-  .replace("<database>", process.env.DATABASE_NAME);
+const databaseUrl =
+  process.env.NODE_ENV === "production"
+    ? process.env.DATABASE_PROD
+    : process.env.DATABASE;
+const databaseUser =
+  process.env.NODE_ENV === "production"
+    ? process.env.DATABASE_PROD_USER
+    : process.env.DATABASE_USER;
+const databasePwd =
+  process.env.NODE_ENV === "production"
+    ? process.env.DATABASE_PROD_PWD
+    : process.env.DATABASE_PWD;
+const databaseName =
+  process.env.NODE_ENV === "production"
+    ? process.env.DATABASE_PROD_NAME
+    : process.env.DATABASE_NAME;
+
+const DB = databaseUrl
+  .replace("<username>", databaseUser)
+  .replace("<password>", databasePwd)
+  .replace("<database>", databaseName);
 
 mongoose.connect(DB).then(() => console.log("DB connection successful!"));
 
