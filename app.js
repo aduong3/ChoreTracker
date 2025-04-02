@@ -5,6 +5,10 @@ import shopsRouter from "./src/router/shopsRouter.js";
 import purchaseHistoryRouter from "./src/router/purchaseHistoryRouter.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
