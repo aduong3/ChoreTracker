@@ -12,7 +12,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173","https://choresite-n71r.onrender.com"]
+    origin: ["http://localhost:5173", "https://choresite-n71r.onrender.com"],
     credentials: true,
   }),
 );
@@ -22,7 +22,7 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, "build")));
 
 // SET ROUTES HERE
 app.use("/api/v1/chores", choresRouter);
@@ -30,8 +30,8 @@ app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/shops", shopsRouter);
 app.use("/api/v1/history", purchaseHistoryRouter);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 app.all("*", (req, res, next) => {
@@ -40,6 +40,5 @@ app.all("*", (req, res, next) => {
     message: "URL not found!",
   });
 });
-
 
 export default app;
