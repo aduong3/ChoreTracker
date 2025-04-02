@@ -12,6 +12,7 @@ export async function signUp(newUser) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newUser),
+      credentials: "include",
     });
 
     if (!res.ok) {

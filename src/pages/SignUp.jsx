@@ -11,7 +11,9 @@ function SignUp() {
 
   const mutation = useMutation({
     mutationFn: signUp,
-    onSuccess: () => {},
+    onSuccess: () => {
+      navigate("/app", { replace: true });
+    },
   });
   const navigate = useNavigate();
 
@@ -37,8 +39,6 @@ function SignUp() {
     setEmail("");
     setPassword("");
     setPasswordConfirm("");
-
-    navigate("/app");
   }
 
   return (
