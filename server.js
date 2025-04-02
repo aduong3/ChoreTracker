@@ -6,7 +6,7 @@ import app from "./app.js";
 
 const databaseUrl =
   process.env.NODE_ENV === "production"
-    ? process.env.DATABASE_PROD
+    ? process.env.MONGO_URI
     : process.env.DATABASE;
 const databaseUser =
   process.env.NODE_ENV === "production"
