@@ -46,12 +46,7 @@ export default function usersController() {
 
       createSendToken(user, 201, res);
     } catch (err) {
-      return next(
-        new ErrorHandler(
-          "Could not create account. Please double check the information.",
-          400,
-        ),
-      );
+      return next(new ErrorHandler(err.message, 400));
     }
   }
   async function logUserIn(req, res, next) {
