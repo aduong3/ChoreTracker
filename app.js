@@ -26,7 +26,7 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "dist")));
 
 // SET ROUTES HERE
 app.use("/api/v1/chores", choresRouter);
@@ -35,7 +35,7 @@ app.use("/api/v1/shops", shopsRouter);
 app.use("/api/v1/history", purchaseHistoryRouter);
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
 app.all("*", (req, res, next) => {
