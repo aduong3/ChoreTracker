@@ -16,8 +16,10 @@ export async function signUp(newUser) {
     });
 
     if (!res.ok) {
+      const data = await res.json();
       throw new Error(
-        "Cannot sign user up. Please check your information again!",
+        data.message ||
+          "User could not be created. Double check your information.",
       );
     }
     const data = await res.json();
