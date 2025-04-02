@@ -1,4 +1,7 @@
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://choresite-n71r.onrender.com/api"
+    : import.meta.env.VITE_API_BASE_URL;
 import ErrorHandler from "../services/ErrorHandler.js";
 
 export async function signUp(newUser) {

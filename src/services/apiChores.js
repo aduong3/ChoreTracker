@@ -1,6 +1,6 @@
 const BASE_URL =
   process.env.NODE_ENV === "production"
-    ? ""
+    ? "https://choresite-n71r.onrender.com/api"
     : import.meta.env.VITE_API_BASE_URL;
 
 export async function fetchAllChores() {
