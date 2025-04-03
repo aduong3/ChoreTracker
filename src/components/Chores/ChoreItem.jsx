@@ -8,6 +8,7 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { completeChore } from "../../services/apiChores";
 import { addPoints } from "../../services/apiUsers";
+import toast from "react-hot-toast";
 
 const completedTask = "line-through opacity-80 text-gray-400";
 
@@ -22,6 +23,7 @@ function ChoreItem({ chore }) {
   const completeMutation = useMutation({
     mutationFn: completeChore,
     onSuccess: () => {
+      toast.success("Chore completed! Nice!");
       queryClient.invalidateQueries(["chores"]);
     },
   });

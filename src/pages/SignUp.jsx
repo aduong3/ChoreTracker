@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { signUp } from "../services/apiUsers";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 function SignUp() {
   const [name, setName] = useState("");
@@ -13,6 +14,9 @@ function SignUp() {
     mutationFn: signUp,
     onSuccess: () => {
       navigate("/app", { replace: true });
+    },
+    onError: (err) => {
+      toast.error(err.message);
     },
   });
   const navigate = useNavigate();
@@ -33,7 +37,22 @@ function SignUp() {
       passwordConfirm,
     };
 
-    mutation.mutate(newUser);
+    toast.promise(
+      mutation.mutate(newUser),
+      {
+        loading: "Signing User Up!",
+        success: "Signed up and logged in!",
+      },
+      {
+        style: {
+          minWidth: "250px",
+        },
+        loading: {
+          duration: 4000,
+        },
+      },
+    );
+    // mutation.mutate(newUser);
 
     setName("");
     setEmail("");

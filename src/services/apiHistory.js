@@ -1,3 +1,5 @@
+import ErrorHandler from "./ErrorHandler";
+
 const BASE_URL =
   process.env.NODE_ENV === "production"
     ? "https://choresite-n71r.onrender.com/api"
@@ -28,7 +30,7 @@ export async function addToHistory(item) {
     const data = await res.json();
     return data;
   } catch (err) {
-    console.log(err.message);
+    return new ErrorHandler(err.message, 400);
   }
 }
 
@@ -46,6 +48,6 @@ export async function getAllHistory() {
     const data = await res.json();
     return data;
   } catch (err) {
-    console.log(err.message);
+    return new ErrorHandler(err.message, 400);
   }
 }

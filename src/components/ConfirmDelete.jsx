@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteChore } from "../services/apiChores";
 import { deleteShopItem } from "../services/apiShops";
+import toast from "react-hot-toast";
 
 function ConfirmDelete({ onCloseModal, id, type }) {
   const queryClient = useQueryClient();
@@ -8,12 +9,20 @@ function ConfirmDelete({ onCloseModal, id, type }) {
     mutationFn: deleteChore,
     onSuccess: () => {
       queryClient.invalidateQueries(["chores"]);
+      toast.success("Chore deleted!");
+    },
+    onError: (err) => {
+      toast.error(err.message);
     },
   });
   const shopMutation = useMutation({
     mutationFn: deleteShopItem,
     onSuccess: () => {
       queryClient.invalidateQueries(["shopItems"]);
+      toast.success("Reward deleted!");
+    },
+    onError: (err) => {
+      toast.error(err.message);
     },
   });
 

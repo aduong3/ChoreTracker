@@ -15,6 +15,17 @@ function PurchaseList() {
     );
   }
   const historyItems = data?.data?.history;
+
+  if (!data.results) {
+    return (
+      <div className="relative flex">
+        <p className="absolute top-50 left-50 translate-x-[5%] text-xl font-bold">
+          You can view what you purchased in the past month here!
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex justify-center py-5">
       <ul className="flex flex-col">

@@ -1,3 +1,5 @@
+import ErrorHandler from "./ErrorHandler";
+
 const BASE_URL =
   process.env.NODE_ENV === "production"
     ? "https://choresite-n71r.onrender.com/api"
@@ -18,7 +20,7 @@ export async function getAllShopItems() {
     const data = await res.json();
     return data;
   } catch (err) {
-    console.log(err.message);
+    throw new ErrorHandler(err.message);
   }
 }
 
@@ -40,7 +42,7 @@ export async function createNewShopItem(newShopItem) {
     const data = await res.json();
     return data;
   } catch (err) {
-    console.log(err.message);
+    throw new ErrorHandler(err.message);
   }
 }
 
@@ -55,7 +57,7 @@ export async function deleteShopItem(id) {
       throw new Error(data.message || "Could not delete shop item!");
     }
   } catch (err) {
-    console.log(err.message);
+    throw new ErrorHandler(err.message);
   }
 }
 
@@ -76,6 +78,6 @@ export async function editShopItem(item, id) {
     const data = await res.json();
     return data;
   } catch (err) {
-    console.log(err.message);
+    return new ErrorHandler(err.message, 400);
   }
 }

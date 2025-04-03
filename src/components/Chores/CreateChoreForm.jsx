@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { addNewChore, editChore } from "../../services/apiChores";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const priorityOptions = ["low", "medium", "high"];
 
@@ -28,12 +29,20 @@ function CreateChoreForm({ choreToEdit, onCloseModal }) {
     mutationFn: addNewChore,
     onSuccess: () => {
       queryClient.invalidateQueries(["chores"]);
+      toast.success("Chore created!");
+    },
+    onError: (err) => {
+      toast.error(err.message);
     },
   });
   const editMutation = useMutation({
     mutationFn: ({ chore, id }) => editChore(chore, id),
     onSuccess: () => {
       queryClient.invalidateQueries(["chores"]);
+      toast.success("Chore edited!");
+    },
+    onError: (err) => {
+      toast.error(err.message);
     },
   });
 

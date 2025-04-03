@@ -3,6 +3,7 @@ import { options } from "../../services/shopIcons";
 import Select from "react-select";
 import { createNewShopItem, editShopItem } from "../../services/apiShops";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 function AddShopItemForm({ itemToEdit, onCloseModal }) {
   let editIconOption;
@@ -18,12 +19,20 @@ function AddShopItemForm({ itemToEdit, onCloseModal }) {
     mutationFn: createNewShopItem,
     onSuccess: () => {
       queryClient.invalidateQueries(["shopItems"]);
+      toast.success("Reward created!");
+    },
+    onError: (err) => {
+      toast.error(err.message);
     },
   });
   const editMutation = useMutation({
     mutationFn: ({ item, id }) => editShopItem(item, id),
     onSuccess: () => {
       queryClient.invalidateQueries(["shopItems"]);
+      toast.success("Reward edited!");
+    },
+    onError: (err) => {
+      toast.error(err.message);
     },
   });
 

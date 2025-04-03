@@ -2,6 +2,7 @@ const BASE_URL =
   process.env.NODE_ENV === "production"
     ? "https://choresite-n71r.onrender.com/api"
     : import.meta.env.VITE_API_BASE_URL;
+
 import ErrorHandler from "../services/ErrorHandler.js";
 
 export async function signUp(newUser) {
@@ -43,7 +44,7 @@ export async function logIn(userInfo) {
 
     if (!res.ok) throw new Error("Email or password is incorrect");
   } catch (err) {
-    return new ErrorHandler(err.message, 400);
+    throw new ErrorHandler(err.message, 400);
   }
 }
 
@@ -58,7 +59,7 @@ export async function checkAuth() {
     const data = await res.json();
     return data;
   } catch (err) {
-    return new ErrorHandler(err.message, 400);
+    throw new ErrorHandler(err.message, 400);
   }
 }
 
@@ -71,7 +72,7 @@ export async function logout() {
     if (!res.ok) throw new Error("Could not log out.");
     return;
   } catch (err) {
-    return new ErrorHandler(err.message, 400);
+    throw new ErrorHandler(err.message, 400);
   }
 }
 
@@ -89,7 +90,7 @@ export async function addPoints(addPoints) {
       throw new Error("Could not add points to the user.");
     }
   } catch (err) {
-    return new ErrorHandler(err.message, 400);
+    throw new ErrorHandler(err.message, 400);
   }
 }
 
@@ -105,6 +106,6 @@ export async function getPoints() {
     const data = await res.json();
     return data;
   } catch (err) {
-    return new ErrorHandler(err.message, 400);
+    throw new ErrorHandler(err.message, 400);
   }
 }

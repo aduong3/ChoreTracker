@@ -23,7 +23,7 @@ const historySchema = new mongoose.Schema(
     purchasedAt: {
       type: Date,
       default: Date.now,
-      index: { expireAfterSeconds: 172800 },
+      index: { expireAfterSeconds: 2628003 },
     },
   },
   {

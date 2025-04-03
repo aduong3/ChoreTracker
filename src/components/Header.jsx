@@ -1,5 +1,3 @@
-import { IoSunnyOutline } from "react-icons/io5";
-
 import Logo from "./Logo";
 import Logout from "./Logout";
 import { useQuery } from "@tanstack/react-query";
@@ -18,8 +16,8 @@ function Header() {
       <Logo textSize="text-xl" isLink={true} />
       <p className="text-lg font-bold">You have {usersPoints} points</p>
       <div className="flex items-center gap-4">
-        <div className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-1 font-bold hover:bg-zinc-200">
-          <p className="text-lg">{usersName}</p>
+        <div className="flex items-center gap-2 rounded-md px-2 py-1 font-bold">
+          <p className="text-lg tracking-wide uppercase">{usersName}</p>
         </div>
         {/* <span className="cursor-pointer rounded-md p-2 text-xl hover:bg-zinc-200">
           <IoSunnyOutline />

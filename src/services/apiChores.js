@@ -3,6 +3,8 @@ const BASE_URL =
     ? "https://choresite-n71r.onrender.com/api"
     : import.meta.env.VITE_API_BASE_URL;
 
+import ErrorHandler from "../services/ErrorHandler.js";
+
 export async function fetchAllChores() {
   try {
     const res = await fetch(`${BASE_URL}/v1/chores`, {
@@ -19,7 +21,7 @@ export async function fetchAllChores() {
     const data = await res.json();
     return data;
   } catch (err) {
-    console.log(err.message);
+    throw new ErrorHandler(err.message, 400);
   }
 }
 
@@ -41,7 +43,7 @@ export async function addNewChore(newChore) {
 
     return data;
   } catch (err) {
-    console.log(err.message);
+    throw new ErrorHandler(err.message, 400);
   }
 }
 
@@ -55,11 +57,8 @@ export async function deleteChore(id) {
     if (!res.ok) {
       throw new Error("Unable to delete chore.");
     }
-
-    const data = await res.json();
-    return data;
   } catch (err) {
-    console.log(err.message);
+    throw new ErrorHandler(err.message, 400);
   }
 }
 
@@ -81,7 +80,7 @@ export async function editChore(chore, id) {
 
     return data;
   } catch (err) {
-    console.log(err.message);
+    throw new ErrorHandler(err.message, 400);
   }
 }
 
@@ -100,6 +99,6 @@ export async function completeChore(id) {
 
     return;
   } catch (err) {
-    console.log(err.message);
+    throw new ErrorHandler(err.message, 400);
   }
 }

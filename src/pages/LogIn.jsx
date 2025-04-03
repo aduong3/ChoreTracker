@@ -1,13 +1,17 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logIn } from "../services/apiUsers";
+import toast from "react-hot-toast";
 
 function LogIn() {
   const mutation = useMutation({
     mutationFn: logIn,
     onSuccess: () => {
       navigate("/app", { replace: true });
+    },
+    onError: (err) => {
+      toast.error(err.message);
     },
   });
   const { isPending } = mutation;
@@ -25,8 +29,22 @@ function LogIn() {
     e.preventDefault();
     if (!email || !password) return;
 
-    mutation.mutate({ email, password });
-
+    toast.promise(
+      mutation.mutate({ email, password }),
+      {
+        loading: "Logging User In!",
+        success: "Successfully logged in!",
+      },
+      {
+        style: {
+          minWidth: "250px",
+        },
+        loading: {
+          duration: 4000,
+        },
+      },
+    );
+    // mutation.mutate({ email, password });
     setEmail("");
     setPassword("");
   }

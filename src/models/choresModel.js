@@ -22,7 +22,7 @@ const choresSchema = new mongoose.Schema(
         },
         message: "Date should not be in the past.",
       },
-      index: { expireAfterSeconds: 172800 },
+      index: { expireAfterSeconds: 604800 },
     },
     day: {
       type: String,

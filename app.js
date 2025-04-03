@@ -7,6 +7,9 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
+import helmet from "helmet";
+import mongoSanitize from "express-mongo-sanitize";
+import xss from "xss-clean";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -23,6 +26,8 @@ app.use(
 
 // app.options("*", cors());
 
+app.use(helmet());
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -33,6 +38,10 @@ app.use("/api/v1/chores", choresRouter);
 app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/shops", shopsRouter);
 app.use("/api/v1/history", purchaseHistoryRouter);
+
+app.use(mongoSanitize());
+
+app.use(xss());
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
