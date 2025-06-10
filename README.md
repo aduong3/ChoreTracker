@@ -13,6 +13,11 @@ The first verison of this project (see master branch) was built when I had almos
 - **RESTful API**: Backend API built with Express for seamless data handling.
 
 ------
+## 📱 Mobile Responsiveness
+
+Currently, ChoreTracker is optimized for desktop use and does **not** have mobile responsiveness implemented. I will revisit this and update it to become more accessible and user-friendly across all devices.
+
+------
 
 ## 🛠️ Tech Stack
 - **Frontend**: React, Vite
