@@ -1,4 +1,4 @@
-ChoreTracker started as a mission to tackle on personal chaos, not just around the house, but in my own habits. Between impulsive snack runs and forgotten errands, I needed a way to bring order and discipline. So I build this Full-Stack React app to help me organize chores effortlessly and create that discipline. 
+ChoreTracker started as a mission to tackle on personal chaos, not just around the house, but in my own habits. Between impulsive snack runs and forgotten errands, I needed a way to bring order and discipline. So I build this Full-Stack React app to help me organize chores effortlessly and create that discipline. The app features a clean, simple design that makes it easy for users to navigate and manage tasks without problem.
 
 The first verison of this project (see master branch) was built when I had almost zero knowledge of full-stack development. After gaining formal experience through various courses on Udemy, I revisited the app and rebuilt it with a stronger foundation and cleaner architecture (see main branch).
 
